@@ -1,0 +1,97 @@
+[
+    {
+        "id_subcategoria": 1,
+        "titulo": "Consulta médica",
+        "id_categoria": "1"
+    },
+    {
+        "id_subcategoria": 2,
+        "titulo": "Exame médico",
+        "id_categoria": "1"
+    },
+    {
+        "id_subcategoria": 3,
+        "titulo": "Pagamento IPVA",
+        "id_categoria": "2"
+    },
+    {
+        "id_subcategoria": 4,
+        "titulo": "Revisão",
+        "id_categoria": "2"
+    },
+    {
+        "id_subcategoria": 5,
+        "titulo": "Troca de óleo",
+        "id_categoria": "2"
+    },
+    {
+        "id_subcategoria": 6,
+        "titulo": "Matrícula",
+        "id_categoria": "3"
+    },
+    {
+        "id_subcategoria": 7,
+        "titulo": "Material escolar",
+        "id_categoria": "3"
+    },    
+    {
+        "id_subcategoria": 8,
+        "titulo": "Pagamento mensalidade",
+        "id_categoria": "3"
+    },    
+    {
+        "id_subcategoria": 9,
+        "titulo": "Prova",
+        "id_categoria": "3"
+    }, 
+    {
+        "id_subcategoria": 10,
+        "titulo": "Entrega de trabalho",
+        "id_categoria": "3"
+    },
+    {
+        "id_subcategoria": 11,
+        "titulo": "Veterinário",
+        "id_categoria": "4"
+    },  
+    {
+        "id_subcategoria": 12,
+        "titulo": "Vacina",
+        "id_categoria": "4"
+    },   
+    {
+        "id_subcategoria": 13,
+        "titulo": "Vermifugar",
+        "id_categoria": "4"
+    },        
+    {
+        "id_subcategoria": 14,
+        "titulo": "Pet Shop",
+        "id_categoria": "4"
+    }, 
+    {
+        "id_subcategoria": 15,
+        "titulo": "Festa",
+        "id_categoria": "5"
+    },      
+    {
+        "id_subcategoria": 16,
+        "titulo": "Show",
+        "id_categoria": "5"
+    },     
+    {
+        "id_subcategoria": 17,
+        "titulo": "Clube",
+        "id_categoria": "5"
+    },    
+    {
+        "id_subcategoria": 18,
+        "titulo": "Cinema",
+        "id_categoria": "5"
+    },
+    {
+        "id_subcategoria": 19,
+        "titulo": "Viagem",
+        "id_categoria": "5"
+    }
+]

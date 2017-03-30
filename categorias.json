@@ -1,0 +1,44 @@
+[
+    {
+        "id_categoria": 1,
+        "titulo": "Saúde",
+        "id_subcategoria": 1,
+        "icone": "local_hospital",
+        "cor": "#7F2020"
+    },
+    {
+        "id_categoria": 2,
+        "titulo": "Carro",
+        "id_subcategoria": 3,
+        "icone": "directions_car",
+        "cor": "#dbab70"
+    },
+    {
+        "id_categoria": 3,
+        "titulo": "Educação",
+        "id_subcategoria": 1,
+        "icone": "book",
+        "cor": "#2d6395"
+    },
+    {
+        "id_categoria": 4,
+        "titulo": "Pets",
+        "id_subcategoria": 1,
+        "icone": "pets",
+        "cor": "#73381d"
+    },
+    {
+        "id_categoria": 5,
+        "titulo": "Lazer",
+        "id_subcategoria": 1,
+        "icone": "local_bar",
+        "cor": "#d25b73"
+    },
+    {
+        "id_categoria": 6,
+        "titulo": "Outros",
+        "id_subcategoria": 1,
+        "icone": "more_vert",
+        "cor": "#00a499"
+    }
+]
