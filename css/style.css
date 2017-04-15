@@ -80,7 +80,11 @@ header h1 {
     font-size: 1.5rem;
   }
 }
-
+html,body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 div.barra-menu{
   background-color: #7f8c97;
   color: #FFF;
@@ -176,6 +180,34 @@ div.barra-menu{
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
+
+
+
+
+
+
+
+
+
+
+.timeline-checkbox, input.timeline-checkbox:focus{
+    background-image: none !important;
+}
+
+.timeline-select{
+    background: none;
+    border: none;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
 
 .cd-timeline-img.cd-movie {
   background: #c03b44;

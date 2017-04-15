@@ -14,53 +14,134 @@
 </head>
 <body>	
 
-<nav class="navbar navbar-info" role="navigation">
-	<div class="container-fluid">
-    	<div class="navbar-header">
-    		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-    		</button>
-    		<a class="navbar-brand" href="#">Timeline IT</a>
-    	</div>
+<body style="padding-top: 70px;">
+    <nav class="navbar navbar-info" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Timeline IT</a>            
+            </div>
+            <div class="collapse navbar-collapse" id="navigation-index">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="components-documentation.html" target="_blank">
+                            <i class="material-icons">dashboard</i> Components
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="material-icons">cloud_download</i> Download
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+	<div class="container">
+		<h3>Novo evento</h3>
+        
+<!--
+        <ol class="breadcrumb">
+          <li><select class="form-control" style="display: inline !important;"><option>Casa</option></select></li>
+          <li><select class="form-control" style="display: inline !important;"><option>Casa</option></select></li>
+          <li><select class="timeline-select"><option>IPTU</option></select></li>
+        </ol>
+-->
+         <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">title</i>
+            </span>
+            <input type="text" class="form-control" placeholder="Título">
+        </div>
 
-    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    		<ul class="nav navbar-nav" style="float: right;">
-        		<li class="dropdown">
-        			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
-        			<ul class="dropdown-menu">
-					  <li><a href="#">Action</a></li>
-					  <li><a href="#">Another action</a></li>
-					  <li><a href="#">Something else here</a></li>
-					  <li class="divider"></li>
-					  <li><a href="#">Separated link</a></li>
-					  <li class="divider"></li>
-				      <li><a href="#">One more separated link</a></li>
-        			</ul>
-        		</li>
-    		</ul>
-    	</div>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <div class="togglebutton">
+                    <label>
+                        <input type="checkbox" checked="">
+                    </label>
+                </div>
+
+            </span>
+            <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">date_range</i>
+            </span>
+            <input class="form-control" id="evt_dt_ini" type="date"/>
+        </div>
+        
+        <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final" style="float: right;">Adicionar data final<div class="ripple-container"></div>
+        </button>
+        
+        <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
+			 <div class="col-xs-12">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                    <input class="form-control" id="evt_dt_fim" type="date"/>
+                </div>
+            </div>
+		</div>
+        
+        <div class="row">
+			<div class="col-xs-12">
+				<div class="input-group form-group">
+					<span class="input-group-addon">
+                        <i class="material-icons">notifications</i>
+                    </span>
+                    <label class="control-label">Notificar</label>
+					<select class="form-control" id="notificar_periodo">
+                        <option value="0" selected>10 minutos antes</option>
+                        <option value="0">30 minutos antes</option>
+                        <option value="0">1 hora antes</option>
+                        <option value="0"> 2 horas antes</option>
+                        <option value="0">Personalizar</option>
+                    </select>
+				</div>
+			</div>
+		</div>
+        
 	</div>
-</nav>
-
-
-<button class="btn btn-default">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-danger">Danger</button>
-<button class="btn btn-white">White</button>
-	
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<!-- <script src="js/modernizr.js"></script>  -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/material.min.js"></script>
-    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
 	<script src="js/material-kit.js" type="text/javascript"></script>
+    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
 	<script src="js/main.js"></script> 
+	<script>
+        $(".datepicker").val("03/12/2016");
+        $("#btn_dt_final").click(function(){
+            if ($(this).data("value") === 0){
+                $("#div_evt_dt_fim").slideToggle();
+                $(this).html("Remover data final");  
+                $(this).data("value", 1);
+            } else {
+                $("#div_evt_dt_fim").slideToggle();
+                $(this).html("Adicionar data final");  
+                $(this).data("value", 0);
+            }
+        });
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
