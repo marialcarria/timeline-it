@@ -37,7 +37,7 @@ function renderizar(conteudo) {
 				<span class="cd-date">${conteudo.ts_ini}</span>
 			</div>
 		</div>`;
-    $('section').append(evento_html);
+    $('section').append(evento_html);    
 }
 
 function get_eventos() {
@@ -45,8 +45,7 @@ function get_eventos() {
 		function(data) {
 			data.forEach(renderizar);
 			
-			timelineBlocks = $('.cd-timeline-block');
-			
+			timelineBlocks = $('.cd-timeline-block');		
 			hideBlocks(timelineBlocks, offset);
 			//on scolling, show/animate timeline blocks when enter the viewport
 			$(window).on('scroll', function(){
@@ -66,40 +65,24 @@ $.getJSON('categorias.json').then(
         	console.log(categorias[c.id_categoria].icone);	
         });
 		get_eventos();
+        $(window).trigger('categorias-load');
     },
     function() {
         alert('Ocorreu um erro ao carregar as categorias.');
     }
 );
 
-
-
-function LightenDarkenColor(col, amt) {
-  
-    var usePound = false;
-  
-    if (col[0] == "#") {
-        col = col.slice(1);
-        usePound = true;
-    }
- 
-    var num = parseInt(col,16);
- 
-    var r = (num >> 16) + amt;
- 
-    if (r > 255) r = 255;
-    else if  (r < 0) r = 0;
- 
-    var b = ((num >> 8) & 0x00FF) + amt;
- 
-    if (b > 255) b = 255;
-    else if  (b < 0) b = 0;
- 
-    var g = (num & 0x0000FF) + amt;
- 
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
- 
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-  
+function renderizar_categorias(seletor){
+    var html = "";
+    categorias.forEach(function(c){
+        html +=`<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                    <button class="btn btn-categoria" style="background-color: ${c.cor};"><i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br><span style="font-size: 1em;">${c.titulo}</span></button>  
+                </div>`;  
+    });   
+    $(seletor).append(html);                     
 }
+
+$(window).on('categorias-load', function(){
+    renderizar_categorias(".lista-categorias");
+});
+        

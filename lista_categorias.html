@@ -1,16 +1,17 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link href="css/material-kit.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/material-kit.css"/>
 	<link rel="icon" href="img/timeline-icon.png">
+    
 	<title>Timeline IT</title>
-</head>
+</head>  
 <body style="padding-top: 70px;">
     <nav class="navbar navbar-info" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999;">
         <div class="container-fluid">
@@ -21,51 +22,48 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Timeline IT</a>            
+                <a class="navbar-brand" href="/index.html"><i class="material-icons">timeline</i> Timeline IT</a>            
             </div>
             <div class="collapse navbar-collapse" id="navigation-index">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="components-documentation.html" target="_blank">
-                            <i class="material-icons">settings</i> Preferências
+                            <i class="material-icons">settings</i>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="material-icons">account_circle</i> Conta
+                            <i class="material-icons">account_circle</i>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-		<section id="cd-timeline"></section>
+	<div class="container">
+		<h3>Olá, Mariana</h3>
         
-        <div style="text-align: center; position: fixed; right: 0; bottom: 0; transform: translateX(-50%) translateY(-1em);">
-            <button class="btn btn-fab btn-fab-mini btn-round" id="filtrar_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
-                <i class="material-icons">filter_list</i>
-            </button><br>
-            <button onclick="window.location.href='/eventos.html'" class="btn btn-fab btn-fab-mini btn-success btn-round" id="add_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
-                <i class="material-icons">add</i>
-            </button><br>
-            <button class="btn btn-fab btn-danger btn-round" id="mais_opcoes" style="display: inline-block;">
-                <i class="material-icons">more_vert</i>
-            </button>
-        </div>
+        <div class="row lista-categorias"></div>
+        <button class="btn btn-simple btn-success" onclick="window.location.href='editar_categoria.html'"><i class="material-icons">add</i> Incluir categoria</button>
     </div>
-	<script src="js/modernizr.js"></script> 
 	<script src="js/jquery-3.1.1.min.js"></script>
+	<!-- <script src="js/modernizr.js"></script>  -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.blockUI.js"></script>
-	<script src="js/main.js"></script> 
     <script src="js/material.min.js"></script>
 	<script src="js/material-kit.js" type="text/javascript"></script>
+    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
+	<script src="js/main.js"></script> 
 <!--    <script type="text/javascript" src="cordova.js"></script>-->
-    <script>
-        $("#mais_opcoes").on("click", function(){
-             $("#add_evento, #filtrar_evento").fadeToggle();
-        });
-    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

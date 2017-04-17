@@ -12,8 +12,39 @@
     
 	<title>Timeline IT</title>
 </head>
-<body>	
 
+    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Personalizar</h4>
+      </div>
+      <div class="modal-body">
+          A cada <input type="number" min="1" max="1000"/> <select><option>dias</option><option>semanas</option><option>meses</option></select>
+     
+      <div class="input-group">
+            <span class="input-group-addon">
+                <div class="togglebutton">
+                    <label>
+                        <input type="checkbox" checked="" id="tempo">
+                    </label>
+                </div>
+
+            </span>
+            <input class="form-control timeline-checkbox" readonly value="Por tempo indeterminado">
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success btn-simple">Concluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
 <body style="padding-top: 70px;">
     <nav class="navbar navbar-info" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999;">
         <div class="container-fluid">
@@ -24,18 +55,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Timeline IT</a>            
+                <a class="navbar-brand" href="/index.html"><i class="material-icons">timeline</i> Timeline IT</a>            
             </div>
             <div class="collapse navbar-collapse" id="navigation-index">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="components-documentation.html" target="_blank">
-                            <i class="material-icons">dashboard</i> Components
+                            <i class="material-icons">settings</i>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="material-icons">cloud_download</i> Download
+                            <i class="material-icons">account_circle</i>
                         </a>
                     </li>
                 </ul>
@@ -45,25 +76,33 @@
 	<div class="container">
 		<h3>Novo evento</h3>
         
-<!--
         <ol class="breadcrumb">
-          <li><select class="form-control" style="display: inline !important;"><option>Casa</option></select></li>
-          <li><select class="form-control" style="display: inline !important;"><option>Casa</option></select></li>
-          <li><select class="timeline-select"><option>IPTU</option></select></li>
+          <li>
+              <select class="timeline-select">
+                <option>Casa</option>
+                <option>Carro</option>
+                <option>Pets</option>
+                <option>Lazer</option>
+              </select></li>
+          <li>
+              <select class="timeline-select">
+                  <option>IPTU</option>
+                  <option>Reforma</option>        
+              </select>
+            </li>
         </ol>
--->
          <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">title</i>
             </span>
-            <input type="text" class="form-control" placeholder="Título">
+            <input type="text" class="form-control" placeholder="ex: Pagamento da primeira parcela IPTU">
         </div>
 
         <div class="input-group">
             <span class="input-group-addon">
                 <div class="togglebutton">
                     <label>
-                        <input type="checkbox" checked="">
+                        <input type="checkbox" checked="" id="dia_inteiro">
                     </label>
                 </div>
 
@@ -71,26 +110,48 @@
             <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
         </div>
         
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">date_range</i>
-            </span>
-            <input class="form-control" id="evt_dt_ini" type="date"/>
-        </div>
-        
-        <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final" style="float: right;">Adicionar data final<div class="ripple-container"></div>
-        </button>
-        
-        <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
-			 <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-6">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">date_range</i>
                     </span>
-                    <input class="form-control" id="evt_dt_fim" type="date"/>
+                    <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17"/>
+                </div>
+            </div>
+            <div class="col-xs-6 div_evt_hr_ini" style="display: none;">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">access_time</i>
+                    </span>
+                    <input class="form-control" id="evt_hr_ini" type="time" value="08:00"/>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
+			 <div class="col-xs-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                    <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18"/>
+                </div>
+            </div>
+            <div class="col-xs-6 div_evt_hr_fim" style="display: none;">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">access_time</i>
+                    </span>
+                    <input class="form-control" id="evt_hr_fim" type="time" value="09:00"/>
                 </div>
             </div>
 		</div>
+        
+        <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final">Adicionar data final<div class="ripple-container"></div>
+        </button>
+        
         
         <div class="row">
 			<div class="col-xs-12">
@@ -110,6 +171,28 @@
 			</div>
 		</div>
         
+        <div class="row">
+			<div class="col-xs-12">
+				<div class="input-group form-group">
+					<span class="input-group-addon">
+                        <i class="material-icons">replay</i>
+                    </span>
+                    <label class="control-label">Repetição</label>
+					<select class="form-control" id="repeticao">
+                        <option value="0" selected>Não se repete</option>
+                        <option value="1">Todo dia</option>
+                        <option value="2">Toda semana</option>
+                        <option value="3">Todo mês</option>
+                        <option value="4">Todo ano</option>
+                        <option value="5">Personalizar</option>
+                    </select>
+				</div>
+			</div>
+		</div>
+        
+        
+        <button class="btn btn-success" style="float: right;"><i class="material-icons">check</i></button>
+        <button class="btn btn-danger btn-simple" onclick="window.location.href='/index.html'" style="float:right;">Cancelar</button>
 	</div>
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<!-- <script src="js/modernizr.js"></script>  -->
@@ -119,8 +202,11 @@
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
 	<script src="js/main.js"></script> 
+<!--    <script type="text/javascript" src="cordova.js"></script>-->
 	<script>
-        $(".datepicker").val("03/12/2016");
+        //$(".datepicker").val("03/12/2016");
+      
+        //adicionar data final
         $("#btn_dt_final").click(function(){
             if ($(this).data("value") === 0){
                 $("#div_evt_dt_fim").slideToggle();
@@ -130,6 +216,17 @@
                 $("#div_evt_dt_fim").slideToggle();
                 $(this).html("Adicionar data final");  
                 $(this).data("value", 0);
+            }
+        });
+        
+        //dia inteiro 
+        $("#dia_inteiro").on("change", function(){
+            $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
+        });
+        
+        $("#repeticao").on("change", function(){
+            if($(this).val() === "5"){
+                $("#myModal").modal();
             }
         });
 	</script>

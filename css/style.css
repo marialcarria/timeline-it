@@ -182,14 +182,14 @@ div.barra-menu{
 }
 
 
+/*TIMELINE IT*/
 
 
-
-
-
-
-
-
+.btn-categoria{
+    width: 100% !important;
+    height: 0 !important;
+    padding-bottom: 100% !important;
+}
 .timeline-checkbox, input.timeline-checkbox:focus{
     background-image: none !important;
 }
@@ -199,13 +199,7 @@ div.barra-menu{
     border: none;
     background-color: transparent;
 }
-
-
-
-
-
-
-
+/** TIMELINE IT*/
 
 
 
