@@ -74,23 +74,14 @@
         </div>
     </nav>
 	<div class="container">
-		<h3>Novo evento</h3>
-        
-        <ol class="breadcrumb">
-          <li>
-              <select class="timeline-select">
-                <option>Casa</option>
-                <option>Carro</option>
-                <option>Pets</option>
-                <option>Lazer</option>
-              </select></li>
-          <li>
-              <select class="timeline-select">
-                  <option>IPTU</option>
-                  <option>Reforma</option>        
-              </select>
-            </li>
-        </ol>
+		<h3>Novo evento</h3> 
+           <label class="label label-default" style="font-size: 1.2em;">Casa</label>
+            <div class="form-group">
+                <input type="text" id="input_subcategoria" class="form-control" placeholder="[Digite a subcategoria]">
+            </div>
+            <ul class="list-group" id="lista_subcategorias" data-categoria="7">
+              <!--json com subcategorias-->
+            </ul>
          <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">title</i>
@@ -192,7 +183,7 @@
         
         
         <button class="btn btn-success" style="float: right;"><i class="material-icons">check</i></button>
-        <button class="btn btn-danger btn-simple" onclick="window.location.href='/index.html'" style="float:right;">Cancelar</button>
+        <a class="btn btn-danger btn-simple" href="index.html" style="float:right;">Cancelar</a>
 	</div>
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<!-- <script src="js/modernizr.js"></script>  -->
@@ -229,6 +220,41 @@
                 $("#myModal").modal();
             }
         });
+        
+        var idCateg = $("#lista_subcategorias").data("categoria");
+        var listaSubCateg = "";
+        
+        $.getJSON('subcategorias.json').then(         
+            function(data) {
+                data.forEach(function(c){
+                    if(idCateg == c.id_categoria){
+                        listaSubCateg += `<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`;
+                    }
+                });
+                $("#lista_subcategorias").append(listaSubCateg);
+            },
+            function(x) {
+                console.log(x.responseText);
+                alert('Ocorreu um erro.');
+            }
+        );
+        
+        //buscar subcategorias ao digitar no input
+        $("#input_subcategoria").on("input", function(){
+            autoCompletar($("#lista_subcategorias>li"), this.value);
+        });
+        function autoCompletar(lista, valor){
+            var val = valor.toLowerCase();
+            lista.each(function(e){
+                var txtList = $(this).html().toLowerCase();
+                if (txtList.search(val) >= 0){
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }        
+        //lista_subcategorias
 	</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 var timelineBlocks;
 var offset = 0.8;
 var categorias = [];
+//var somaValor = 0.0;
 
 function hideBlocks(blocks, offset) {
 	blocks.each(function(){
