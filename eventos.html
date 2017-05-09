@@ -186,16 +186,29 @@
         <a class="btn btn-danger btn-simple" href="index.html" style="float:right;">Cancelar</a>
 	</div>
 	<script src="js/jquery-3.1.1.min.js"></script>
-	<!-- <script src="js/modernizr.js"></script>  -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/material.min.js"></script>
 	<script src="js/material-kit.js" type="text/javascript"></script>
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
+    <script src="js/dexie.js"></script> 
+    <script src="js/db.js"></script> 
 	<script src="js/main.js"></script> 
 <!--    <script type="text/javascript" src="cordova.js"></script>-->
 	<script>
         //$(".datepicker").val("03/12/2016");
+        
+        db.subcategorias.where("id_categoria").equals(7).toArray().then(         
+            function(data) {
+                data.forEach(function(c){
+                    $("#lista_subcategorias").append(`<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`);
+                });
+            }).catch(
+            function(x) {
+                console.log(x.responseText);
+                alert('Ocorreu um erro.');
+            }
+        );
+        
       
         //adicionar data final
         $("#btn_dt_final").click(function(){
@@ -220,41 +233,11 @@
                 $("#myModal").modal();
             }
         });
-        
-        var idCateg = $("#lista_subcategorias").data("categoria");
-        var listaSubCateg = "";
-        
-        $.getJSON('subcategorias.json').then(         
-            function(data) {
-                data.forEach(function(c){
-                    if(idCateg == c.id_categoria){
-                        listaSubCateg += `<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`;
-                    }
-                });
-                $("#lista_subcategorias").append(listaSubCateg);
-            },
-            function(x) {
-                console.log(x.responseText);
-                alert('Ocorreu um erro.');
-            }
-        );
-        
+    
         //buscar subcategorias ao digitar no input
         $("#input_subcategoria").on("input", function(){
             autoCompletar($("#lista_subcategorias>li"), this.value);
-        });
-        function autoCompletar(lista, valor){
-            var val = valor.toLowerCase();
-            lista.each(function(e){
-                var txtList = $(this).html().toLowerCase();
-                if (txtList.search(val) >= 0){
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        }        
-        //lista_subcategorias
+        });      
 	</script>
 </body>
 </html>

@@ -59,18 +59,26 @@
             </button>
         </div>
     </div>
-	<script src="js/modernizr.js"></script> 
+	<script src="js/modernizr.js"></script>
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.blockUI.js"></script>
-	<script src="js/main.js"></script> 
     <script src="js/material.min.js"></script>
 	<script src="js/material-kit.js" type="text/javascript"></script>
-<!--    <script type="text/javascript" src="cordova.js"></script>-->
+    
+    <script src="js/moment.js"></script> 
+    <script src="js/dexie.js"></script> 
+    <script src="js/db.js"></script> 
+    
+	<script src="js/index.js"></script> 
+<!--
     <script>
-        $("#mais_opcoes").on("click", function(){
-             $("#add_evento, #filtrar_evento").fadeToggle();
+        db.eventos.hook('reading', function (obj) {
+            obj.ts_ini = moment(obj.ts_ini, 'DD/MM/YYYY H:mm')._d;
+            obj.ts_fim = moment(obj.ts_fim, 'DD/MM/YYYY H:mm')._d;
+            return obj;
         });
     </script>
+-->
+<!--    <script type="text/javascript" src="cordova.js"></script>-->
 </body>
 </html>
