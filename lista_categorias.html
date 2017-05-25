@@ -59,7 +59,7 @@
     <script>
         db.categorias.each(function(c){
             $(".lista-categorias").append(`<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <button class="btn btn-categoria" style="background-color: ${c.cor};"><i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br><span style="font-size: 1em;">${c.titulo}</span></button>  
+                        <a href="evento.html?id_categoria=${c.id_categoria}" class="btn btn-categoria" style="background-color: ${c.cor};"><i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br><span style="font-size: 1em;">${c.titulo}</span></a>  
                     </div>`);  
         });  
     </script>

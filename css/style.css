@@ -199,6 +199,14 @@ div.barra-menu{
     border: none;
     background-color: transparent;
 }
+
+#lista_subcategorias>li{
+    cursor: pointer;
+}
+#lista_subcategorias>li:active{
+    background-color: #eee;
+}
+
 /** TIMELINE IT*/
 
 

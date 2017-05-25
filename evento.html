@@ -11,6 +11,13 @@
 	<link rel="icon" href="img/timeline-icon.png">
     
 	<title>Timeline IT</title>
+    <script>
+        var param = {};
+        window.location.search.substr(1).split('&').forEach(function(par) {
+            var p = par.split('='); 
+            param[p[0]] = p[1]; 
+        });
+    </script>
 </head>
 
     
@@ -75,18 +82,19 @@
     </nav>
 	<div class="container">
 		<h3>Novo evento</h3> 
-           <label class="label label-default" style="font-size: 1.2em;">Casa</label>
+        <input type="hidden" id="id_subcategoria_selecionada">
+           <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
             <div class="form-group">
                 <input type="text" id="input_subcategoria" class="form-control" placeholder="[Digite a subcategoria]">
             </div>
-            <ul class="list-group" id="lista_subcategorias" data-categoria="7">
+            <ul class="list-group" id="lista_subcategorias" data-categoria="">
               <!--json com subcategorias-->
             </ul>
          <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">title</i>
             </span>
-            <input type="text" class="form-control" placeholder="ex: Pagamento da primeira parcela IPTU">
+            <input type="text" class="form-control" id="nome_evento" placeholder="ex: Pagamento da primeira parcela IPTU">
         </div>
 
         <div class="input-group">
@@ -182,7 +190,7 @@
 		</div>
         
         
-        <button class="btn btn-success" style="float: right;"><i class="material-icons">check</i></button>
+        <button class="btn btn-success" id="gravar_evento" style="float: right;"><i class="material-icons">check</i></button>
         <a class="btn btn-danger btn-simple" href="index.html" style="float:right;">Cancelar</a>
 	</div>
 	<script src="js/jquery-3.1.1.min.js"></script>
@@ -196,18 +204,38 @@
 <!--    <script type="text/javascript" src="cordova.js"></script>-->
 	<script>
         //$(".datepicker").val("03/12/2016");
-        
-        db.subcategorias.where("id_categoria").equals(7).toArray().then(         
+        $("#lista_subcategorias").hide();
+        console.log(param.id_categoria);
+        db.categorias.where("id_categoria").equals(parseInt(param.id_categoria)).first().then(         
+            function(data) {
+                $("#titulo_categoria").html("<i class='material-icons'>" + data.icone + "</i> " + data.titulo).css({"background-color": data.cor});
+                //console.log(data);
+            }).catch(
+            function(x) {
+                console.log(x);
+                alert('Ocorreu um erro.');
+            }
+        );
+        db.subcategorias.where("id_categoria").equals(parseInt(param.id_categoria)).toArray().then(         
             function(data) {
                 data.forEach(function(c){
                     $("#lista_subcategorias").append(`<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`);
                 });
+                $("#lista_subcategorias>li").on('click', function(){
+                    $("#input_subcategoria").val($(this).text());
+                    $(this).parent().slideUp();
+                    $("#id_subcategoria_selecionada").val($(this).attr("id"));
+                });
+                $("#input_subcategoria").on('focus', function(){
+                    $("#lista_subcategorias").show();
+                });
             }).catch(
             function(x) {
-                console.log(x.responseText);
+                console.log(x);
                 alert('Ocorreu um erro.');
             }
         );
+        
         
       
         //adicionar data final
@@ -237,7 +265,20 @@
         //buscar subcategorias ao digitar no input
         $("#input_subcategoria").on("input", function(){
             autoCompletar($("#lista_subcategorias>li"), this.value);
-        });      
+        });   
+        
+        $("#gravar_evento").on('click', function(){
+            var evento = {
+                titulo: $("#nome_evento").val() || $("#input_subcategoria").val(), 
+                descricao: '',
+                subcategoria: $("#id_subcategoria_selecionada").val(),
+                ts_ini: $("#evt_dt_ini").val(),
+                ts_fim: $("#evt_dt_fim").val(),
+                valor: ''
+            };
+            db.eventos.add(evento);
+        });
+        
 	</script>
 </body>
 </html>
