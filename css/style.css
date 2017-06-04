@@ -1,12 +1,25 @@
 .flexrow {
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-flow: row;
+  flex-wrap: nowrap;
 }
 .flexrow > * {
-  flex-grow: 1;
+  position: relative;
+  flex: 1 1 auto;
+  margin: 0 0.5em;
 }
 .flexrow > .nogrow {
-  flex-grow: 0;
+  flex: 0 1 auto;
+}
+
+.block-center {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 /* -------------------------------- 

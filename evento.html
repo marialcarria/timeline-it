@@ -52,77 +52,102 @@
     <div class="container">
         <h3>Novo evento</h3>
         <input type="hidden" id="id_subcategoria_selecionada">
-        <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
-        <div class="form-group">
-            <input type="text" id="input_subcategoria" class="form-control" placeholder="[Digite a subcategoria]">
-        </div>
-        <ul class="list-group" id="lista_subcategorias" data-categoria="">
-            <!--json com subcategorias-->
-        </ul>
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="material-icons">title</i>
-            </span>
-            <input type="text" class="form-control" id="nome_evento" placeholder="ex: Pagamento da primeira parcela IPTU">
-        </div>
-
-        <div class="input-group">
-            <span class="input-group-addon">
-                <div class="togglebutton">
-                    <label>
-                        <input type="checkbox" checked="" id="dia_inteiro">
-                    </label>
-                </div>
-
-            </span>
-            <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
-        </div>
-
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">date_range</i>
-                    </span>
-                    <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17" />
-                </div>
-            </div>
-            <div class="col-xs-6 div_evt_hr_ini" style="display: none;">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">access_time</i>
-                    </span>
-                    <input class="form-control" id="evt_hr_ini" type="time" value="08:00" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
-            <div class="col-xs-6">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">date_range</i>
-                    </span>
-                    <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18" />
-                </div>
-            </div>
-            <div class="col-xs-6 div_evt_hr_fim" style="display: none;">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">access_time</i>
-                    </span>
-                    <input class="form-control" id="evt_hr_fim" type="time" value="09:00" />
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final">Adicionar data final<div class="ripple-container"></div>
-        </button>
-
         <div class="panel">
             <div class="panel-heading">
-                Notificar
+                Informações do evento
+            </div>
+            <div class="panel-body">
+                <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
+                <!--<div class="form-group">
+                    <input type="text" id="input_subcategoria" class="form-control" placeholder="Digite a subcategoria">
+                </div>-->
+
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">list</i>
+                    </span>
+                    <input type="text" id="input_subcategoria" class="form-control" placeholder="informe a subcategoria">
+                </div>
+
+                <ul class="list-group" id="lista_subcategorias" data-categoria="">
+                    <!--json com subcategorias-->
+                </ul>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">title</i>
+                    </span>
+                    <input type="text" class="form-control" id="nome_evento" placeholder="descrição do evento">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">attach_money</i>
+                    </span>
+                    <input type="text" class="form-control valor text-right" placeholder="0,00" id="valor_evento">
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                Informações do evento
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" checked="" id="dia_inteiro">
+                            </label>
+                        </div>
+
+                    </span>
+                    <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">date_range</i>
+                            </span>
+                            <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 div_evt_hr_ini" style="display: none;">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">access_time</i>
+                            </span>
+                            <input class="form-control" id="evt_hr_ini" type="time" value="08:00" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
+                    <div class="col-xs-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">date_range</i>
+                            </span>
+                            <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18" />
+                        </div>
+                    </div>
+                    <div class="col-xs-6 div_evt_hr_fim" style="display: none;">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">access_time</i>
+                            </span>
+                            <input class="form-control" id="evt_hr_fim" type="time" value="09:00" />
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final">Adicionar data final<div class="ripple-container"></div>
+            </button>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                Notificação
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -160,11 +185,11 @@
                 </div>
                 <div class="row">
                     <div class="flexrow">
-                        <div>
-                            <div class="input-group">
-                                <div class="input-group-addon">repetir a cada</div>
-                                <input class="form-control text-right" min="1" type="number">
-                            </div>
+                        <div class="nogrow">
+                            <label class="block-center">Repetir a cada</label>
+                        </div>
+                        <div class="nogrow" style="width: 4em;">
+                            <input type="text" class="form-control text-right" min="1">
                         </div>
                         <div>
                             <select class="form-control" id="repeticao">
@@ -193,6 +218,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/material.min.js"></script>
     <script src="js/material-kit.js" type="text/javascript"></script>
+    <script src="js/jquery.mask.min.js"></script>
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="js/dexie.js"></script>
     <script src="js/db.js"></script>
@@ -200,6 +226,7 @@
     <!--    <script type="text/javascript" src="cordova.js"></script>-->
     <script>
         //$(".datepicker").val("03/12/2016");
+        $('.valor').mask('000.000.000.000.000,00', { reverse: true });
         $("#lista_subcategorias").hide();
         console.log(param.id_categoria);
         db.categorias.where("id_categoria").equals(parseInt(param.id_categoria)).first().then(
@@ -209,7 +236,7 @@
             }).catch(
             function (x) {
                 console.log(x);
-                alert('Ocorreu um erro.');
+                //alert('Ocorreu um erro.');
             }
             );
         db.subcategorias.where("id_categoria").equals(parseInt(param.id_categoria)).toArray().then(
@@ -228,7 +255,7 @@
             }).catch(
             function (x) {
                 console.log(x);
-                alert('Ocorreu um erro.');
+                //alert('Ocorreu um erro.');
             }
             );
 
