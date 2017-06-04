@@ -1,3 +1,14 @@
+.flexrow {
+  display: flex;
+  flex-flow: row;
+}
+.flexrow > * {
+  flex-grow: 1;
+}
+.flexrow > .nogrow {
+  flex-grow: 0;
+}
+
 /* -------------------------------- 
 
 Primary style

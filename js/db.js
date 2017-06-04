@@ -1,5 +1,5 @@
 var db = new Dexie('timeline_it');
-
+var ip = 'http://192.168.0.102:8081';
 db.version(1).stores({
     categorias: '++id_categoria,titulo,icone',
     subcategorias: '++id_subcategoria,titulo,id_categoria',
@@ -17,7 +17,7 @@ db.on('ready', function () {
             // We want framework to continue waiting, so we encapsulate
             // the ajax call in a Dexie.Promise that we return here.
             return new Dexie.Promise(function (resolve, reject) {
-                $.ajax('//localhost:8081/categorias', {
+                $.ajax(`${ip}/categorias`, {
                     type: 'get',
                     dataType: 'json',
                     error: function (xhr, textStatus) {
@@ -50,7 +50,7 @@ db.on('ready', function () {
             } else {
                 console.log("Não tem subcategorias, baixando....");
                 return new Dexie.Promise(function (resolve, reject) {
-                    $.ajax('//localhost:8081/subcategorias', {
+                    $.ajax(`${ip}/subcategorias`, {
                         type: 'get',
                         dataType: 'json',
                         error: function (xhr, textStatus) {
@@ -84,7 +84,7 @@ db.on('ready', function () {
             } else {
                 console.log("Não tem eventos, baixando....");
                 return new Dexie.Promise(function (resolve, reject) {
-                    $.ajax('//localhost:8081/eventos', {
+                    $.ajax(`${ip}/eventos`, {
                         type: 'get',
                         dataType: 'json',
                         error: function (xhr, textStatus) {

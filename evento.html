@@ -1,57 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/fonts.css">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/material-kit.css"/>
-	<link rel="icon" href="img/timeline-icon.png">
-    
-	<title>Timeline IT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material-kit.css" />
+    <link rel="icon" href="img/timeline-icon.png">
+
+    <title>Timeline IT</title>
     <script>
         var param = {};
-        window.location.search.substr(1).split('&').forEach(function(par) {
-            var p = par.split('='); 
-            param[p[0]] = p[1]; 
+        window.location.search.substr(1).split('&').forEach(function (par) {
+            var p = par.split('=');
+            param[p[0]] = p[1];
         });
     </script>
 </head>
 
-    
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Personalizar</h4>
-      </div>
-      <div class="modal-body">
-          A cada <input type="number" min="1" max="1000"/> <select><option>dias</option><option>semanas</option><option>meses</option></select>
-     
-      <div class="input-group">
-            <span class="input-group-addon">
-                <div class="togglebutton">
-                    <label>
-                        <input type="checkbox" checked="" id="tempo">
-                    </label>
-                </div>
-
-            </span>
-            <input class="form-control timeline-checkbox" readonly value="Por tempo indeterminado">
-        </div>    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success btn-simple">Concluir</button>
-      </div>
-    </div>
-  </div>
-</div>
-    
-    
 <body style="padding-top: 70px;">
     <nav class="navbar navbar-info" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999;">
         <div class="container-fluid">
@@ -62,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index.html"><i class="material-icons">timeline</i> Timeline IT</a>            
+                <a class="navbar-brand" href="/index.html"><i class="material-icons">timeline</i> Timeline IT</a>
             </div>
             <div class="collapse navbar-collapse" id="navigation-index">
                 <ul class="nav navbar-nav navbar-right">
@@ -80,17 +49,17 @@
             </div>
         </div>
     </nav>
-	<div class="container">
-		<h3>Novo evento</h3> 
+    <div class="container">
+        <h3>Novo evento</h3>
         <input type="hidden" id="id_subcategoria_selecionada">
-           <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
-            <div class="form-group">
-                <input type="text" id="input_subcategoria" class="form-control" placeholder="[Digite a subcategoria]">
-            </div>
-            <ul class="list-group" id="lista_subcategorias" data-categoria="">
-              <!--json com subcategorias-->
-            </ul>
-         <div class="input-group">
+        <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
+        <div class="form-group">
+            <input type="text" id="input_subcategoria" class="form-control" placeholder="[Digite a subcategoria]">
+        </div>
+        <ul class="list-group" id="lista_subcategorias" data-categoria="">
+            <!--json com subcategorias-->
+        </ul>
+        <div class="input-group">
             <span class="input-group-addon">
                 <i class="material-icons">title</i>
             </span>
@@ -108,14 +77,14 @@
             </span>
             <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
         </div>
-        
+
         <div class="row">
             <div class="col-xs-6">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">date_range</i>
                     </span>
-                    <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17"/>
+                    <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17" />
                 </div>
             </div>
             <div class="col-xs-6 div_evt_hr_ini" style="display: none;">
@@ -123,19 +92,19 @@
                     <span class="input-group-addon">
                         <i class="material-icons">access_time</i>
                     </span>
-                    <input class="form-control" id="evt_hr_ini" type="time" value="08:00"/>
+                    <input class="form-control" id="evt_hr_ini" type="time" value="08:00" />
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="row" id="div_evt_dt_fim" style="display: none; clear: both;">
-			 <div class="col-xs-6">
+            <div class="col-xs-6">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">date_range</i>
                     </span>
-                    <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18"/>
+                    <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18" />
                 </div>
             </div>
             <div class="col-xs-6 div_evt_hr_fim" style="display: none;">
@@ -143,133 +112,160 @@
                     <span class="input-group-addon">
                         <i class="material-icons">access_time</i>
                     </span>
-                    <input class="form-control" id="evt_hr_fim" type="time" value="09:00"/>
+                    <input class="form-control" id="evt_hr_fim" type="time" value="09:00" />
                 </div>
             </div>
-		</div>
-        
+        </div>
+
         <button class="btn btn-simple btn-info" data-value="0" id="btn_dt_final">Adicionar data final<div class="ripple-container"></div>
         </button>
-        
-        
-        <div class="row">
-			<div class="col-xs-12">
-				<div class="input-group form-group">
-					<span class="input-group-addon">
-                        <i class="material-icons">notifications</i>
+
+        <div class="panel">
+            <div class="panel-heading">
+                Notificar
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">notifications</i>
+                            </span>
+                            <select class="form-control" id="notificar_periodo">
+                                <option value="0" selected>10 minutos antes</option>
+                                <option value="0">30 minutos antes</option>
+                                <option value="0">1 hora antes</option>
+                                <option value="0"> 2 horas antes</option>
+                                <option value="0">Personalizar</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                Repetição
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" checked="" id="repeticao">
+                            </label>
+                        </div>
                     </span>
-                    <label class="control-label">Notificar</label>
-					<select class="form-control" id="notificar_periodo">
-                        <option value="0" selected>10 minutos antes</option>
-                        <option value="0">30 minutos antes</option>
-                        <option value="0">1 hora antes</option>
-                        <option value="0"> 2 horas antes</option>
-                        <option value="0">Personalizar</option>
-                    </select>
-				</div>
-			</div>
-		</div>
-        
-        <div class="row">
-			<div class="col-xs-12">
-				<div class="input-group form-group">
-					<span class="input-group-addon">
-                        <i class="material-icons">replay</i>
-                    </span>
-                    <label class="control-label">Repetição</label>
-					<select class="form-control" id="repeticao">
-                        <option value="0" selected>Não se repete</option>
-                        <option value="1">Todo dia</option>
-                        <option value="2">Toda semana</option>
-                        <option value="3">Todo mês</option>
-                        <option value="4">Todo ano</option>
-                        <option value="5">Personalizar</option>
-                    </select>
-				</div>
-			</div>
-		</div>
-        
-        
+                    <input class="form-control timeline-checkbox" readonly value="Repetir">
+                </div>
+                <div class="row">
+                    <div class="flexrow">
+                        <div>
+                            <div class="input-group">
+                                <div class="input-group-addon">repetir a cada</div>
+                                <input class="form-control text-right" min="1" type="number">
+                            </div>
+                        </div>
+                        <div>
+                            <select class="form-control" id="repeticao">
+                                <option value="D">dia(s)</option>
+                                <option value="W">semana(s)</option>
+                                <option value="M">mes(es)</option>
+                                <option value="Y">ano(s)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group form-group">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <button class="btn btn-success" id="gravar_evento" style="float: right;"><i class="material-icons">check</i></button>
         <a class="btn btn-danger btn-simple" href="index.html" style="float:right;">Cancelar</a>
-	</div>
-	<script src="js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+    </div>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src="js/material.min.js"></script>
-	<script src="js/material-kit.js" type="text/javascript"></script>
+    <script src="js/material-kit.js" type="text/javascript"></script>
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="js/dexie.js"></script> 
-    <script src="js/db.js"></script> 
-	<script src="js/main.js"></script> 
-<!--    <script type="text/javascript" src="cordova.js"></script>-->
-	<script>
+    <script src="js/dexie.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/main.js"></script>
+    <!--    <script type="text/javascript" src="cordova.js"></script>-->
+    <script>
         //$(".datepicker").val("03/12/2016");
         $("#lista_subcategorias").hide();
         console.log(param.id_categoria);
-        db.categorias.where("id_categoria").equals(parseInt(param.id_categoria)).first().then(         
-            function(data) {
-                $("#titulo_categoria").html("<i class='material-icons'>" + data.icone + "</i> " + data.titulo).css({"background-color": data.cor});
+        db.categorias.where("id_categoria").equals(parseInt(param.id_categoria)).first().then(
+            function (data) {
+                $("#titulo_categoria").html("<i class='material-icons'>" + data.icone + "</i> " + data.titulo).css({ "background-color": data.cor });
                 //console.log(data);
             }).catch(
-            function(x) {
+            function (x) {
                 console.log(x);
                 alert('Ocorreu um erro.');
             }
-        );
-        db.subcategorias.where("id_categoria").equals(parseInt(param.id_categoria)).toArray().then(         
-            function(data) {
-                data.forEach(function(c){
+            );
+        db.subcategorias.where("id_categoria").equals(parseInt(param.id_categoria)).toArray().then(
+            function (data) {
+                data.forEach(function (c) {
                     $("#lista_subcategorias").append(`<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`);
                 });
-                $("#lista_subcategorias>li").on('click', function(){
+                $("#lista_subcategorias>li").on('click', function () {
                     $("#input_subcategoria").val($(this).text());
                     $(this).parent().slideUp();
                     $("#id_subcategoria_selecionada").val($(this).attr("id"));
                 });
-                $("#input_subcategoria").on('focus', function(){
+                $("#input_subcategoria").on('focus', function () {
                     $("#lista_subcategorias").show();
                 });
             }).catch(
-            function(x) {
+            function (x) {
                 console.log(x);
                 alert('Ocorreu um erro.');
             }
-        );
-        
-        
-      
+            );
+
+
+
         //adicionar data final
-        $("#btn_dt_final").click(function(){
-            if ($(this).data("value") === 0){
+        $("#btn_dt_final").click(function () {
+            if ($(this).data("value") === 0) {
                 $("#div_evt_dt_fim").slideToggle();
-                $(this).html("Remover data final");  
+                $(this).html("Remover data final");
                 $(this).data("value", 1);
             } else {
                 $("#div_evt_dt_fim").slideToggle();
-                $(this).html("Adicionar data final");  
+                $(this).html("Adicionar data final");
                 $(this).data("value", 0);
             }
         });
-        
+
         //dia inteiro 
-        $("#dia_inteiro").on("change", function(){
+        $("#dia_inteiro").on("change", function () {
             $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
         });
-        
-        $("#repeticao").on("change", function(){
-            if($(this).val() === "5"){
+
+        $("#repeticao").on("change", function () {
+            if ($(this).val() === "5") {
                 $("#myModal").modal();
             }
         });
-    
+
         //buscar subcategorias ao digitar no input
-        $("#input_subcategoria").on("input", function(){
+        $("#input_subcategoria").on("input", function () {
             autoCompletar($("#lista_subcategorias>li"), this.value);
-        });   
-        
-        $("#gravar_evento").on('click', function(){
+        });
+
+        $("#gravar_evento").on('click', function () {
             var evento = {
-                titulo: $("#nome_evento").val() || $("#input_subcategoria").val(), 
+                titulo: $("#nome_evento").val() || $("#input_subcategoria").val(),
                 descricao: '',
                 subcategoria: $("#id_subcategoria_selecionada").val(),
                 ts_ini: $("#evt_dt_ini").val(),
@@ -278,17 +274,7 @@
             };
             db.eventos.add(evento);
         });
-        
-	</script>
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
