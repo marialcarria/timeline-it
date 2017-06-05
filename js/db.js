@@ -1,4 +1,5 @@
 var db = new Dexie('timeline_it');
+//var ip = "localhost:8081";
 var ip = 'http://192.168.0.102:8081';
 db.version(1).stores({
     categorias: '++id_categoria,titulo,icone',

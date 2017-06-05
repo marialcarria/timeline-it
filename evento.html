@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/material-kit.css" />
+    <style>
+        #titulo_categoria {
+            display: inline-block;
+            color: white;
+            border-radius: 0.5em;
+            font-size: 24px;
+            padding: 0.33em 1em;
+        }
+    </style>
     <link rel="icon" href="img/timeline-icon.png">
 
     <title>Timeline IT</title>
@@ -31,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index.html"><i class="material-icons">timeline</i> Timeline IT</a>
+                <a class="navbar-brand" href="index.html"><i class="material-icons">timeline</i> Timeline IT</a>
             </div>
             <div class="collapse navbar-collapse" id="navigation-index">
                 <ul class="nav navbar-nav navbar-right">
@@ -57,11 +66,7 @@
                 Informações do evento
             </div>
             <div class="panel-body">
-                <label class="label label-default" id="titulo_categoria" style="font-size: 1.2em;"></label>
-                <!--<div class="form-group">
-                    <input type="text" id="input_subcategoria" class="form-control" placeholder="Digite a subcategoria">
-                </div>-->
-
+                <div id="titulo_categoria"></div>
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">list</i>
@@ -88,7 +93,7 @@
         </div>
         <div class="panel">
             <div class="panel-heading">
-                Informações do evento
+                Data/hora
             </div>
             <div class="panel-body">
                 <div class="input-group">
@@ -100,7 +105,7 @@
                         </div>
 
                     </span>
-                    <input class="form-control timeline-checkbox" readonly value="Dia inteiro">
+                    <input class="form-control timeline-checkbox" id="dia_inteiro" value="Dia inteiro">
                 </div>
 
                 <div class="row">
@@ -147,22 +152,24 @@
         </div>
         <div class="panel">
             <div class="panel-heading">
-                Notificação
+                <i class="material-icons">notifications</i> Notificação
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="material-icons">notifications</i>
-                            </span>
-                            <select class="form-control" id="notificar_periodo">
-                                <option value="0" selected>10 minutos antes</option>
-                                <option value="0">30 minutos antes</option>
-                                <option value="0">1 hora antes</option>
-                                <option value="0"> 2 horas antes</option>
-                                <option value="0">Personalizar</option>
+                    <div class="flexrow" id="notificar_detalhes">
+                        <div class="nogrow" style="width: 4em;">
+                            <input type="number" id="quantidade_notificacao" class="form-control text-right" min="1" value="1">
+                        </div>
+                        <div>
+                            <select class="form-control" id="periodo_notificacao">
+                                <option value="M">minuto(s)</option>
+                                <option value="H">hora(s)</option>
+                                <option value="D">dia(s)</option>
+                                <option value="W">semana(s)</option>
                             </select>
+                        </div>
+                        <div class="nogrow">
+                            <label class="block-center">antes</label>
                         </div>
                     </div>
                 </div>
@@ -177,22 +184,22 @@
                     <span class="input-group-addon">
                         <div class="togglebutton">
                             <label>
-                                <input type="checkbox" checked="" id="repeticao">
+                                <input type="checkbox" id="repetir">
                             </label>
                         </div>
                     </span>
                     <input class="form-control timeline-checkbox" readonly value="Repetir">
                 </div>
                 <div class="row">
-                    <div class="flexrow">
+                    <div class="flexrow" id="repetir_detalhes" style="display: none;">
                         <div class="nogrow">
                             <label class="block-center">Repetir a cada</label>
                         </div>
                         <div class="nogrow" style="width: 4em;">
-                            <input type="text" class="form-control text-right" min="1">
+                            <input type="number" id="quantidade_repeticao" class="form-control text-right" min="1" value="1">
                         </div>
                         <div>
-                            <select class="form-control" id="repeticao">
+                            <select class="form-control" id="periodo_repeticao">
                                 <option value="D">dia(s)</option>
                                 <option value="W">semana(s)</option>
                                 <option value="M">mes(es)</option>
@@ -201,14 +208,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="input-group form-group">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <button class="btn btn-success" id="gravar_evento" style="float: right;"><i class="material-icons">check</i></button>
@@ -220,87 +219,12 @@
     <script src="js/material-kit.js" type="text/javascript"></script>
     <script src="js/jquery.mask.min.js"></script>
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="js/moment.js"></script>
     <script src="js/dexie.js"></script>
     <script src="js/db.js"></script>
     <script src="js/main.js"></script>
     <!--    <script type="text/javascript" src="cordova.js"></script>-->
-    <script>
-        //$(".datepicker").val("03/12/2016");
-        $('.valor').mask('000.000.000.000.000,00', { reverse: true });
-        $("#lista_subcategorias").hide();
-        console.log(param.id_categoria);
-        db.categorias.where("id_categoria").equals(parseInt(param.id_categoria)).first().then(
-            function (data) {
-                $("#titulo_categoria").html("<i class='material-icons'>" + data.icone + "</i> " + data.titulo).css({ "background-color": data.cor });
-                //console.log(data);
-            }).catch(
-            function (x) {
-                console.log(x);
-                //alert('Ocorreu um erro.');
-            }
-            );
-        db.subcategorias.where("id_categoria").equals(parseInt(param.id_categoria)).toArray().then(
-            function (data) {
-                data.forEach(function (c) {
-                    $("#lista_subcategorias").append(`<li class="list-group-item" id="${c.id_subcategoria}">${c.titulo}</li>`);
-                });
-                $("#lista_subcategorias>li").on('click', function () {
-                    $("#input_subcategoria").val($(this).text());
-                    $(this).parent().slideUp();
-                    $("#id_subcategoria_selecionada").val($(this).attr("id"));
-                });
-                $("#input_subcategoria").on('focus', function () {
-                    $("#lista_subcategorias").show();
-                });
-            }).catch(
-            function (x) {
-                console.log(x);
-                //alert('Ocorreu um erro.');
-            }
-            );
-
-
-
-        //adicionar data final
-        $("#btn_dt_final").click(function () {
-            if ($(this).data("value") === 0) {
-                $("#div_evt_dt_fim").slideToggle();
-                $(this).html("Remover data final");
-                $(this).data("value", 1);
-            } else {
-                $("#div_evt_dt_fim").slideToggle();
-                $(this).html("Adicionar data final");
-                $(this).data("value", 0);
-            }
-        });
-
-        //dia inteiro 
-        $("#dia_inteiro").on("change", function () {
-            $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
-        });
-
-        $("#repeticao").on("change", function () {
-            if ($(this).val() === "5") {
-                $("#myModal").modal();
-            }
-        });
-
-        //buscar subcategorias ao digitar no input
-        $("#input_subcategoria").on("input", function () {
-            autoCompletar($("#lista_subcategorias>li"), this.value);
-        });
-
-        $("#gravar_evento").on('click', function () {
-            var evento = {
-                titulo: $("#nome_evento").val() || $("#input_subcategoria").val(),
-                descricao: '',
-                subcategoria: $("#id_subcategoria_selecionada").val(),
-                ts_ini: $("#evt_dt_ini").val(),
-                ts_fim: $("#evt_dt_fim").val(),
-                valor: ''
-            };
-            db.eventos.add(evento);
-        });
+    <script src="js/evento.js">
     </script>
 </body>
 
