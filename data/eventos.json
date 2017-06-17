@@ -1,0 +1,19 @@
+[
+    {
+        "titulo": "Renovar Matrícula",
+        "descricao": "",
+        "categoria": 3,
+        "subcategoria": 6,
+        "ts_ini": "12/03/2017 08:00",
+        "ts_fim": "12/03/2017 09:30",
+        "valor": "0",
+        "notificacao": {
+            "quantidade": 2,
+            "periodo": "D"
+        },
+        "repeticao": {
+            "quantidade": 1, 
+            "periodo": "W"
+        }
+    }    
+]

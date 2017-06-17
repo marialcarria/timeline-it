@@ -1,4 +1,4 @@
-module.exports = [
+[
     {
 		"id_subcategoria": 1,
 		"titulo": "Aluguel",
@@ -161,4 +161,4 @@ module.exports = [
 		"id_categoria": 1,
 		"repetir": null
 	}
-];
+]

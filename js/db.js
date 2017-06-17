@@ -1,10 +1,16 @@
 var db = new Dexie('timeline_it');
 //var ip = "localhost:8081";
-var ip = 'http://192.168.0.102:8081';
+var ip = '/data';
 db.version(1).stores({
     categorias: '++id_categoria,titulo,icone',
     subcategorias: '++id_subcategoria,titulo,id_categoria',
     eventos: '++id_evento,titulo,descricao,id_categoria,id_subcategoria,ts_ini,ts_fim,valor'
+});
+db.version(2).stores({
+    eventos: '++id_evento,titulo,descricao,categoria,subcategoria,ts_ini,ts_fim,valor'
+});
+db.carga_feita = new Promise(function(resolve, reject) {
+    db.finalizar_carga = resolve;
 });
 
 
@@ -18,7 +24,7 @@ db.on('ready', function () {
             // We want framework to continue waiting, so we encapsulate
             // the ajax call in a Dexie.Promise that we return here.
             return new Dexie.Promise(function (resolve, reject) {
-                $.ajax(`${ip}/categorias`, {
+                $.ajax(`${ip}/categorias.json`, {
                     type: 'get',
                     dataType: 'json',
                     error: function (xhr, textStatus) {
@@ -51,7 +57,7 @@ db.on('ready', function () {
             } else {
                 console.log("Não tem subcategorias, baixando....");
                 return new Dexie.Promise(function (resolve, reject) {
-                    $.ajax(`${ip}/subcategorias`, {
+                    $.ajax(`${ip}/subcategorias.json`, {
                         type: 'get',
                         dataType: 'json',
                         error: function (xhr, textStatus) {
@@ -85,7 +91,7 @@ db.on('ready', function () {
             } else {
                 console.log("Não tem eventos, baixando....");
                 return new Dexie.Promise(function (resolve, reject) {
-                    $.ajax(`${ip}/eventos`, {
+                    $.ajax(`${ip}/eventos.json`, {
                         type: 'get',
                         dataType: 'json',
                         error: function (xhr, textStatus) {
@@ -112,6 +118,9 @@ db.on('ready', function () {
                 });
             }
         })
+    }).then(function() {
+        // Promise.resolve(db.carga_feita);
+        db.finalizar_carga();
     });
 });
 

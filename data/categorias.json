@@ -1,4 +1,4 @@
-module.exports = [
+[
     {
         "id_categoria": 1,
         "titulo": "Saúde",

@@ -31,33 +31,19 @@
 </head>
 
 <body style="padding-top: 70px;">
-    <nav class="navbar navbar-info" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999;">
+    <nav class="navbar" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999; height: 70px;">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-index">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html"><i class="material-icons">timeline</i> Timeline IT</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navigation-index">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="components-documentation.html" target="_blank">
-                            <i class="material-icons">settings</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="material-icons">account_circle</i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <a class="logo" href="#"></a>
+            
+            <a class="navbar-item" data-toggle="collapse" data-target="#dropdown-menu">
+                <i class="material-icons">list</i>
+            </a>
         </div>
     </nav>
+    <div id="dropdown-menu" class="list-group collapse out">
+        <a href="lista_categorias.html" class="list-group-item">Novo evento</a>
+        <a class="list-group-item">Dapibus ac facilisis in</a>
+    </div>
     <div class="container">
         <h3>Novo evento</h3>
         <input type="hidden" id="id_subcategoria_selecionada">

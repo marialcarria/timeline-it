@@ -22,6 +22,98 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.div-soma-valor{
+  text-align: center;
+}
+.label-soma-valor{
+  position: fixed;
+  bottom: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #126286;
+  padding: .4em;
+  border-radius: 2px;
+  color: #FFF;
+}
+.icone_valor{
+   font-family: 'Material Icons';
+  content: "link";
+  -webkit-font-feature-settings: 'liga';
+}
+
+.input-pesquisar{
+  font-family: "Open Sans", sans-serif;
+  color: black;
+  border: none;
+  width: calc(100vw - 180px);
+  padding: 0 10px;
+  height: 24px;
+  float: right;
+  margin-right: 14px;
+  margin-top: calc(25px - 12px);
+  border-radius: 1em;
+  transition: ease-in-out all .4s;
+}
+.input-pesquisar.esconder{
+  width: 0;
+  padding: 0;
+}
+#dropdown-menu{
+  position: fixed;
+  right: 0;
+  z-index: 99999;
+  top: 70px;
+}
+
+.navbar{
+  border-radius: 0 !important;
+  background-color: #126286 !important;
+}
+.navbar-item{
+  float: right;
+  color: white;
+  margin-right: 4px;
+  margin-top: calc(25px - 12px);
+}
+.logo{
+    float: left;
+    height: 50px;
+    background-color: white;
+    border-radius: 100%;
+    background-image: url(/img/tl-icon.png);
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: 7.5px;
+    width: 50px;
+}
+
+.logo.sem-titulo::after{
+  content: "";
+}
+.logo::after{
+  content: "Timeline IT";
+  font-family: 'Open Sans',sans-serif;
+  left: 55px;
+  display: block;
+  position: relative;
+  white-space: nowrap;
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rodape{
+    background-color: #126286;
+    height: calc(40px + 0.5em);
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    box-shadow: 0 -10px 20px -12px rgba(0, 0, 0, 0.22), 0 -3px 20px 0px rgba(0, 0, 0, 0.12), 0 -8px 10px -5px rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+}
+#mais_opcoes{
+  background-color: #337ab7;
+}
 /* -------------------------------- 
 
 Primary style
@@ -126,7 +218,7 @@ div.barra-menu{
 #cd-timeline {
   position: relative;
   padding: 2em 0;
-  margin-top: 2em;
+  margin-top: 0.5em;
   margin-bottom: 2em;
 }
 #cd-timeline::before {
