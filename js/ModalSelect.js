@@ -71,7 +71,7 @@ ModalSelect.prototype.show = function () {
         });
     });
     $(`#${this._id} .list-group-item`).on('click', function() {
-        var name = this.textContent;
+        var name = this.innerHTML;
         var value = this.dataset.value;
         var modal = $(this).parents('.ModalSelect');
         console.log(modal.get(0).dataset);
@@ -81,7 +81,7 @@ ModalSelect.prototype.show = function () {
         if($(nameElement).is('input')) {
             $(nameElement).val(name);
         } else {
-            $(nameElement).text(name);
+            $(nameElement).html(name);
         }
         if($(valueElement).is('input')) {
             $(valueElement).val(value);

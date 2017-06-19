@@ -1,17 +1,20 @@
-$('#add_subcategoria').on('click', function(){
-    $(".lista_subcategorias").show();
+$('#add_subcategoria').on('click', function(){    
     var subcategoria = $("#input_subcategorias").val();
     var repeticao = $("#subcategoria_repeticao option:selected").text();
-    $('.lista_subcategorias').append(
-        `<tr class="subcategoria_item">
-            <td class="titulo_subcategoria"> ${subcategoria} </td>
-            <td class="repeticao_subcategoria"> ${repeticao} </td>
-            <td onclick="excluir(this)"><i class="material_icons excluir_subcategoria icone_subcategoria">clear</i></td>
-        </tr>`);
+    if (subcategoria == "" || subcategoria == null){
+        alert("Título inválido para a subcategoria.");
+    } else {
+        $(".lista_subcategorias").show();
+        $('.lista_subcategorias').append(
+            `<tr class="subcategoria_item">
+                <td class="titulo_subcategoria"> ${subcategoria} </td>
+                <td class="repeticao_subcategoria"> ${repeticao} </td>
+                <td onclick="excluir(this)"><i class="material_icons excluir_subcategoria icone_subcategoria">clear</i></td>
+            </tr>`);
+    }
 });
 
 function excluir(val){
-    console.log('dfdfdfffff');
     $(val).parent("tr").remove();
     if ($(".subcategoria_item").length == 0){
         $(".lista_subcategorias").hide();
@@ -21,9 +24,61 @@ function excluir(val){
 $("#gravar_categoria").on("click", function(){
     //testes de consistencia
     //pegar categoria, gravar, pegar subcategorias e gravar com o id da categoria pai
+    var nome_categoria = $("#nome_categoria").val();
+    var ok = nome_categoria.length > 3 || nome_categoria.length < 30 || nome_categoria.trim() != "" || nome_categoria.val() != null;
+    if (!ok){
+        alert("Nome inválido para a categoria (escolher um nome entre 3 e 30 caracteres).");
+        return;
+    } else {
+        var categoria = {};
+        categoria.titulo = nome_categoria;
+        categoria.icone = $("#valor_icone").val() || "playlist_add_check";
+        categoria.cor = $("#valor_cor").val() || "#126286";
+        db.categorias.add(categoria).then(function(id){
+            alert(id);
+            //incluir subcategorias
+            alert("Categoria incluída.");
+            window.location.href = "lista_categorias.html";
+        }).catch(function(e){
+            console.log(e);
+            alert("Ocorreu um erro.");
+        });
+    }
+});
+
+function add_subcategorias(id){
+    var obj_subcategorias = {};
+    $('.lista_subcategorias tr').each(function() {
+        var subcategoria = $(this).find('.titulo_subcategoria');
+        var repeticao = $(this).find('.repeticao_subcategoria');
+        obj_subcategorias = {"titulo": subcategoria, "id_categoria": id, "repetir": repeticao};    
+        db.subcategorias.add(obj_subcategorias).catch(function(e){
+            console.log(e);
+            alert("Ocorreu um erro ao inserir as subcategorias.");
+        });
+    });
+}
+
+$('#selecionar_cor').on('click', function() {    
+    var modal = new ModalSelect('#nome_cor', '#valor_cor');   
+    modal.setData([
+                '#999999',
+                '#9c27b0',
+                '#03a9f4',
+                '#4caf50',
+                '#fbc02d',
+                '#f44336'
+    ].map(function(i){
+        return {
+            value: i,
+            name: `<div style="border: 1px solid #E9E9E9; width: 25px; height: 25px; background-color: ${i};"></div>`
+        }
+    }));
+    modal.show();
+    $(".ModalSelectFiltrar").hide();
 });
     $('#selecionar_icone').on('click', function() {
-        var modal = new ModalSelect('#texto', '#valor');
+        var modal = new ModalSelect('#nome_icone', '#valor_icone');
         modal.setData([
                     '3d_rotation',
                     'ac_unit',
@@ -963,3 +1018,4 @@ $("#gravar_categoria").on("click", function(){
             }));
             modal.show();
         });
+
