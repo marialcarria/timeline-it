@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material-kit.css" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/ModalSelect.css">
+    <link rel="icon" href="img/tl-icon.png">
+    <title>Timeline IT</title>
+</head>
+
+<body style="padding-top: 70px;">
+    <nav class="navbar" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999; height: 70px;">
+        <div class="container-fluid">
+            <a class="logo" href="#"></a>
+            
+            <a class="navbar-item" data-toggle="collapse" data-target="#dropdown-menu">
+                <i class="material-icons">list</i>
+            </a>
+            <a id="pesquisar-icone" class="navbar-item">
+                <i class="material-icons">search</i>
+            </a>
+            <input id="pesquisar" class="input-pesquisar esconder">
+        </div>
+    </nav>
+    <div id="dropdown-menu" class="list-group collapse out">
+        <a href="lista_categorias.html" class="list-group-item">Novo evento</a>
+        <a class="list-group-item">Dapibus ac facilisis in</a>
+    </div>
+    <div class="container-fluid">
+        <label for="texto">Texto:</label>
+        <span id="texto"></span>
+        <button class="btn btn-primary" id="selecionar"><span class="caret"></span></button>
+        <br>
+        <label for="valor">Valor:</label>
+        <input type="text" id="valor" size="2">
+        
+    </div>
+
+    <script src="js/modernizr.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/material.min.js"></script>
+    <script src="js/material-kit.js" type="text/javascript"></script>
+
+    <script src="js/moment.js"></script>
+    <script src="js/dexie.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/ModalSelect.js"></script>
+    <script>
+        $('#selecionar').on('click', function() {
+            var modal = new ModalSelect('#texto', '#valor');
+            db.subcategorias.where('id_categoria').equals(2).toArray().then(function(data) {
+                modal.setData(data, 'titulo', 'id_subcategoria');
+                modal.show();
+            })
+        });
+    </script>
+</body>
+
+</html>

@@ -35,12 +35,15 @@
   border-radius: 2px;
   color: #FFF;
 }
-.icone_valor{
+.icone_valor, .icone_subcategoria{
    font-family: 'Material Icons';
   content: "link";
   -webkit-font-feature-settings: 'liga';
 }
-
+.icone_subcategoria{
+  color: red;
+  cursor: pointer;
+}
 .input-pesquisar{
   font-family: "Open Sans", sans-serif;
   color: black;

@@ -1,0 +1,22 @@
+.ModalSelect .modal-dialog {
+    margin-left: 2em;
+    margin-top: calc(2em + 70px);
+}
+.ModalSelect .modal-content {
+    width: calc(100vw - 4em);
+    height: calc(100vh - 4em - 70px);
+}
+.ModalSelect .modal-header {
+    height: 4em;
+}
+.ModalSelect .modal-body {
+    height: calc(100vh - 4em - 70px - 4em);
+    padding-top: 1em;
+    overflow-y: auto;
+}
+.ModalSelect .list-group-item {
+    cursor: pointer;
+}
+.ModalSelect .modal-header .form-group {
+    margin: 0px;
+}
