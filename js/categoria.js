@@ -12,6 +12,7 @@ $('#add_subcategoria').on('click', function(){
                 <td onclick="excluir(this)"><i class="material_icons excluir_subcategoria icone_subcategoria">clear</i></td>
             </tr>`);
     }
+    $("#input_subcategorias").val("");
 });
 
 function excluir(val){
@@ -34,9 +35,10 @@ $("#gravar_categoria").on("click", function(){
         categoria.titulo = nome_categoria;
         categoria.icone = $("#valor_icone").val() || "playlist_add_check";
         categoria.cor = $("#valor_cor").val() || "#126286";
+        categoria.ativo = 1;
         db.categorias.add(categoria).then(function(id){
-            alert(id);
             //incluir subcategorias
+            add_subcategorias(id);
             alert("Categoria incluída.");
             window.location.href = "lista_categorias.html";
         }).catch(function(e){
@@ -47,14 +49,17 @@ $("#gravar_categoria").on("click", function(){
 });
 
 function add_subcategorias(id){
-    var obj_subcategorias = {};
+    alert(id);    
     $('.lista_subcategorias tr').each(function() {
-        var subcategoria = $(this).find('.titulo_subcategoria');
-        var repeticao = $(this).find('.repeticao_subcategoria');
-        obj_subcategorias = {"titulo": subcategoria, "id_categoria": id, "repetir": repeticao};    
-        db.subcategorias.add(obj_subcategorias).catch(function(e){
+        var obj_subcategorias = {};
+        var titulo = $(this).find('.titulo_subcategoria').text();
+        var repeticao = $(this).find('.repeticao_subcategoria').text();
+        obj_subcategorias = {"titulo": titulo, "id_categoria": id, "repetir": repeticao, "ativo": 1};    
+        db.subcategorias.add(obj_subcategorias).then(function(){
+            //alert("Subcategoria incluída com sucesso;")
+        }).catch(function(e){
             console.log(e);
-            alert("Ocorreu um erro ao inserir as subcategorias.");
+            //alert("Ocorreu um erro ao inserir as subcategorias.");
         });
     });
 }
