@@ -31,7 +31,7 @@ function renderizar(conteudo) {
 				<i class="material-icons icone-timeline">${categoria.icone}</i>
 			</div>
 
-			<div class="cd-timeline-content">
+			<div class="cd-timeline-content evento_timeline" onclick="gerenciar_evento(this);" data-evento="${conteudo.id_evento}">
 				<h2>${conteudo.titulo}</h2>
 				<p>${conteudo.descricao}</p>
 				<span class="mdl-chip mdl-chip-valor">
@@ -54,12 +54,6 @@ db.carga_feita.then(function() {
     categorias = data[1];
     
     eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
-    eventos.forEach(renderizar);
     
     timelineBlocks = $('.cd-timeline-block');		
     hideBlocks(timelineBlocks, offset);
@@ -68,9 +62,17 @@ db.carga_feita.then(function() {
     });
 }).catch(function(err) { throw err; });
 
+
+//abre "mais opções (adicionar evento, filtrar)"
 $("#mais_opcoes").on("click", function(){
      $("#add_evento, #filtrar_evento").fadeToggle();
 });
+
+//editar eventos
+function gerenciar_evento(evt){
+	console.log('oi');
+	window.location.href = "evento.html?id_evento=" + $(evt).attr("data-evento");
+}
 
 function calculaValor(){
 	var soma = 0;

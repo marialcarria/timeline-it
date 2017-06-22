@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/material-kit.css" />
+    <link rel="stylesheet" href="css/ModalSelect.css"/>
     <style>
         #titulo_categoria {
             display: inline-block;
@@ -18,7 +19,7 @@
             padding: 0.33em 1em;
         }
     </style>
-    <link rel="icon" href="img/timeline-icon.png">
+    <link rel="icon" href="img/tl-icon.png?">
 
     <title>Timeline IT</title>
     <script>
@@ -52,11 +53,17 @@
             </div>
             <div class="panel-body">
                 <div id="titulo_categoria"></div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">list</i>
-                    </span>
-                    <input type="text" id="input_subcategoria" class="form-control" placeholder="informe a subcategoria">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-xs" onclick="selecionar_subcategoria();">Selecionar subcategoria <span class="caret"></span></button>
+                        <div id="nome_icone"></div>                          
+                        <div class="input-group" id="informacao_subcategoria" style="display: none;">
+                            <span class="input-group-addon">
+                                <i class="material-icons">list</i>
+                            </span>
+                            <input type="text" class="form-control" id="nome_subcategoria" readonly >
+                        </div>
+                    </div>
                 </div>
 
                 <ul class="list-group" id="lista_subcategorias" data-categoria="">
@@ -99,7 +106,7 @@
                             <span class="input-group-addon">
                                 <i class="material-icons">date_range</i>
                             </span>
-                            <input class="form-control" id="evt_dt_ini" type="date" value="2017-04-17" />
+                            <input class="form-control" id="evt_dt_ini" type="date" value="" />
                         </div>
                     </div>
                     <div class="col-xs-6 div_evt_hr_ini" style="display: none;">
@@ -107,7 +114,7 @@
                             <span class="input-group-addon">
                                 <i class="material-icons">access_time</i>
                             </span>
-                            <input class="form-control" id="evt_hr_ini" type="time" value="08:00" />
+                            <input class="form-control" id="evt_hr_ini" type="time" value="" />
                         </div>
                     </div>
                 </div>
@@ -118,7 +125,7 @@
                             <span class="input-group-addon">
                                 <i class="material-icons">date_range</i>
                             </span>
-                            <input class="form-control" id="evt_dt_fim" type="date" value="2017-04-18" />
+                            <input class="form-control" id="evt_dt_fim" type="date" value="" />
                         </div>
                     </div>
                     <div class="col-xs-6 div_evt_hr_fim" style="display: none;">
@@ -126,7 +133,7 @@
                             <span class="input-group-addon">
                                 <i class="material-icons">access_time</i>
                             </span>
-                            <input class="form-control" id="evt_hr_fim" type="time" value="09:00" />
+                            <input class="form-control" id="evt_hr_fim" type="time" value="" />
                         </div>
                     </div>
                 </div>
@@ -209,8 +216,8 @@
     <script src="js/db.js"></script>
     <script src="js/main.js"></script>
     <!--    <script type="text/javascript" src="cordova.js"></script>-->
-    <script src="js/evento.js">
-    </script>
+    <script src="js/evento.js"></script>
+    <script src="js/ModalSelect.js"></script>
 </body>
 
 </html>

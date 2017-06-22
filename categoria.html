@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/fonts.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/material-kit.css"/>
+	<link rel="stylesheet" href="css/ModalSelect.css"/>
 	<link rel="icon" href="img/tl-icon.png?2">
     
 	<title>Timeline IT</title>
@@ -63,7 +64,7 @@
             </div>
             <div class="panel-body">
                 <table class="table lista_subcategorias" style="display: none;">
-                    <tr>
+                    <tr class="header_subcategorias">
                         <th>Título</th>
                         <th>Repetição</th>
                         <th>Excluir</th>
@@ -85,8 +86,9 @@
                         </span>
                         <label class="control-label">Repetir a cada</label>
                         <select class="form-control" id="subcategoria_repeticao">
+                            <option value="0" selected>não repetir</option>
                             <option value="m">minuto</option>
-                            <option value="H" selected>hora</option>
+                            <option value="H">hora</option>
                             <option value="D">dia</option>
                             <option value="W">semana</option>
                             <option value="M">mês</option>
@@ -111,6 +113,7 @@
     <script src="js/dexie.js"></script> 
     <script src="js/db.js"></script> 
 	<script src="js/main.js"></script> 
+    <script src="js/icones.js"></script>
     <script src="js/categoria.js"></script>
      <script src="js/ModalSelect.js"></script>
 <!--    <script type="text/javascript" src="cordova.js"></script>-->

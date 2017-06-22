@@ -117,6 +117,9 @@
 #mais_opcoes{
   background-color: #337ab7;
 }
+.evento_timeline{
+  cursor: pointer;
+}
 /* -------------------------------- 
 
 Primary style

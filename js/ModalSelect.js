@@ -1,6 +1,7 @@
 function ModalSelect(el_name, el_value, data, id) {
     this._valueElement = el_value || '';
     this._nameElement = el_name;
+    this._callback = null;
     this._data = [];
     this._id = id || 'modal-' + (new Date()).getTime()
 
@@ -35,7 +36,7 @@ ModalSelect.prototype.setData = function (data, nameProperty, valueProperty) {
     });
 }
 
-ModalSelect.prototype.show = function () {
+ModalSelect.prototype.show = function (callback) {
     $('body').append(`
     <div class="modal fade ModalSelect" id="${this._id}" data-valueelement="${this._valueElement}" data-nameelement="${this._nameElement}">
         <div class="modal-dialog">
@@ -56,9 +57,9 @@ ModalSelect.prototype.show = function () {
     </div>`);
     $(`#${this._id}`).modal('show').on('hidden.bs.modal', function (e) {
         $(this).remove();
-    }).on('shown.bs.modal', function() {
+    });/*.on('shown.bs.modal', function() {
         $(this).find('.ModalSelectFiltrar').focus();
-    });
+    });*/
     $(`#${this._id} .ModalSelectFiltrar`).on('input', function() {
         var val = this.value.toLowerCase();
         $(this).parents('.ModalSelect').find('.list-group-item').each(function(){
@@ -89,5 +90,6 @@ ModalSelect.prototype.show = function () {
             $(valueElement).text(value);
         }
         modal.modal('hide');
+        callback();
     });
 }
