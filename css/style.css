@@ -35,7 +35,7 @@
   border-radius: 2px;
   color: #FFF;
 }
-.icone_valor, .icone_subcategoria{
+.icone_valor, .icone_subcategoria, .btn_excluir{
    font-family: 'Material Icons';
   content: "link";
   -webkit-font-feature-settings: 'liga';

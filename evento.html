@@ -34,7 +34,7 @@
 <body style="padding-top: 70px;">
     <nav class="navbar" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999; height: 70px;">
         <div class="container-fluid">
-            <a class="logo" href="#"></a>
+            <a class="logo" href="index.html"></a>
             
             <a class="navbar-item" data-toggle="collapse" data-target="#dropdown-menu">
                 <i class="material-icons">list</i>
@@ -42,10 +42,12 @@
         </div>
     </nav>
     <div id="dropdown-menu" class="list-group collapse out">
-        <a href="lista_categorias.html" class="list-group-item">Novo evento</a>
+        <a href="lista_categorias.html?redirect=evento" class="list-group-item">Novo evento</a>
+        <a href="categoria.html" class="list-group-item">Nova categoria</a>
+        <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
     </div>
     <div class="container">
-        <h3>Evento</h3>
+        <h3>Evento <button id="excluir_evento" class="btn btn-sm btn-danger pull-right" style="display: none;">x</h3>
         <input type="hidden" id="id_subcategoria_selecionada">
         <div class="panel">
             <div class="panel-heading">
@@ -55,7 +57,7 @@
                 <div id="titulo_categoria"></div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-info btn-xs" onclick="selecionar_subcategoria();">Selecionar subcategoria <span class="caret"></span></button>
+                        <button class="btn btn-primary" onclick="selecionar_subcategoria();">Selecionar subcategoria <span class="caret"></span></button>
                         <div id="nome_icone"></div>                          
                         <div class="input-group" id="informacao_subcategoria" style="display: none;">
                             <span class="input-group-addon">
@@ -218,6 +220,7 @@
     <!--    <script type="text/javascript" src="cordova.js"></script>-->
     <script src="js/evento.js"></script>
     <script src="js/ModalSelect.js"></script>
+    <script src="js/bootbox.min.js"></script>
 </body>
 
 </html>

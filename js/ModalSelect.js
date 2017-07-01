@@ -90,6 +90,6 @@ ModalSelect.prototype.show = function (callback) {
             $(valueElement).text(value);
         }
         modal.modal('hide');
-        callback();
+        if (callback) callback();
     });
 }

@@ -4,83 +4,83 @@
         "titulo": "Saúde",
         "icone": "local_hospital",
         "cor": "#7F2020",
-        "ordem": 3
+        "excluido": 0
     },
     {
         "id_categoria": 2,
         "titulo": "Veículo",
         "icone": "directions_car",
         "cor": "#dbab70",
-        "ordem": 2
+        "excluido": 0
     },
     {
         "id_categoria": 3,
         "titulo": "Educação",
         "icone": "book",
         "cor": "#2d6395",
-        "ordem": 4
+        "excluido": 0
     },
     {
         "id_categoria": 4,
         "titulo": "Pets",
         "icone": "pets",
         "cor": "#73381d",
-        "ordem": 5
+        "excluido": 0
     },
     {
         "id_categoria": 5,
         "titulo": "Lazer",
         "icone": "local_bar",
         "cor": "#d25b73",
-        "ordem": 7
+        "excluido": 0
     },
     {
         "id_categoria": 6,
         "titulo": "Outros",
         "icone": "more_vert",
         "cor": "#00a499",
-        "ordem": 99
+        "excluido": 90
     },
     {
         "id_categoria": 7,
         "titulo": "Casa",
         "icone": "home",
-        "cor": "#dbab70",
-        "ordem": 1
+        "cor": "#D2691E",
+        "excluido": 0
     },
     {
         "id_categoria": 8,
         "titulo": "Pessoal",
-        "icone": "home",
-        "cor": "#dbab70",
-        "ordem": 9
+        "icone": "face",
+        "cor": "#898E8C",
+        "excluido": 0
     },
     {
         "id_categoria": 9,
         "titulo": "Família",
-        "icone": "face",
-        "cor": "#dbab70",
-        "ordem": 6
+        "icone": "child_care",
+        "cor": "#4F84C4",
+        "excluido": 0
     },
     {
         "id_categoria": 10,
         "titulo": "Alimentação",
         "icone": "local_dining",
-        "cor": "#dbab70",
-        "ordem": 10
+        "cor": "#af2370",
+        "excluido": 10
     },
     {
         "id_categoria": 11,
         "titulo": "Viagem",
         "icone": "local_taxi",
-        "cor": "#dbab70",
-        "ordem": 11
+        "cor": "#672E3B",
+        "excluido": 10
     },
     {
         "id_categoria": 12,
         "titulo": "Comunicação",
         "icone": "local_phone",
-        "cor": "#dbab70",
-        "ordem": 12
+        "cor": "#9C9A40",
+        "excluido": 10
     }
 ]

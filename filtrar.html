@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/material-kit.css"/>
+	<link rel="icon" href="img/tl-icon.png?2">
+    
+	<title>Timeline IT</title>
+</head>  
+<body>
+    <h3>Filtrar eventos</h3>
+	<div class="container">
+        <h6>Selecione uma ou mais categorias</h6>
+        <div class="row lista-categorias filtro"></div>        
+        <div class="row">
+            <div class="col-xs-12" style="margin-left: 14px;">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="periodo_filtro" id="periodo_filtro" checked>
+                        Qualquer período
+                    </label>                
+                </div> 
+            </div>           
+        </div>    
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                    <div class="form-group is-empty"><input class="form-control" id="filtro_ini" type="date" value="" disabled><span class="material-input"></span></div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">date_range</i>
+                    </span>
+                    <div class="form-group is-empty"><input class="form-control" id="filtro_fim" type="date" value="" disabled><span class="material-input"></span></div>
+                </div>
+            </div>
+        </div>    
+        <a class="btn btn-raised btn-success pull-right" id="aplicar_filtros"><i class="material-icons">filter_list</i> Filtrar</a>
+        <a class="btn btn-simple btn-danger pull-right" href="index.html"><i class="material-icons">close</i> Cancelar</a>
+    </div>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<!-- <script src="js/modernizr.js"></script>  -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/material.min.js"></script>
+	<script src="js/material-kit.js" type="text/javascript"></script>
+    <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
+    <script src="js/dexie.js"></script> 
+    <script src="js/db.js"></script> 
+	<script src="js/main.js"></script>
+	<script src="js/bootbox.min.js"></script>
+    <script>
+        db.categorias.each(function(c){
+            $(".lista-categorias.filtro").append(`
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                  <button onclick="click_categorias(this);" data-id="${c.id_categoria}" class="btn btn-categoria categorias-filtrar" style="background-color: ${c.cor};">
+                        <i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br>
+                        <span style="font-size: 1em;">${c.titulo}</span>
+                    </button>  
+                </div>`
+            );  
+        });  
+        var categorias_selecionadas = [];
+        function click_categorias(obj){
+            var id_categoria = $(obj).data("id");
+            console.log("click");
+            var cor_btn = $(obj).css("background-color");
+            if ($(obj).css("filter") == "none"){
+                $(obj).css({"filter": "brightness(50%)"});
+            } else {
+                $(obj).css({"filter": "none"});
+            }
+            categorias_selecionadas.push(id_categoria);
+        }
+        $("#periodo_filtro").on("change", function(){
+            if (!$(this).prop("checked")){
+                $("#filtro_ini,#filtro_fim").attr("disabled", false);
+            } else{
+                $("#filtro_ini,#filtro_fim").removeAttr("disabled");
+            }
+        });
+        $("#aplicar_filtros").on("click", function(){
+            categorias_selecionadas = categorias_selecionadas.filter( function( item, index, inputArray ) {
+                return inputArray.indexOf(item) == index;
+            });
+            localStorage.setData("filtro_categorias", categorias_selecionadas.toString());
+            var filtro_ini = $("#filtro_ini").val();
+            var filtro_fim = $("#filtro_ini").val();
+            window.location.href = "index.html?ini=" + filtro_ini + "&fim=" + fim;
+        });
+    </script>
+<!--    <script type="text/javascript" src="cordova.js"></script>-->
+</body>
+</html>

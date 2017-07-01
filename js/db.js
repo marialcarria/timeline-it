@@ -9,6 +9,9 @@ db.version(1).stores({
 db.version(2).stores({
     eventos: '++id_evento,titulo,descricao,categoria,subcategoria,ts_ini,ts_fim,valor'
 });
+db.version(3).stores({
+    categorias: '++id_categoria,titulo,icone,excluido'
+});
 db.carga_feita = new Promise(function(resolve, reject) {
     db.finalizar_carga = resolve;
 });

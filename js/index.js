@@ -1,7 +1,13 @@
 var timelineBlocks;
 var offset = 0.8;
 var eventos, categorias;
-
+var f_ini, f_fim, f_categorias;
+if(param.filtro_ini){// || localStorage.getItem("filtro_categorias")){
+	f_ini = moment(param.filtro_ini, "YYYY-MM-DD").toDate();
+}
+if(param.filtro_fim){// || localStorage.getItem("filtro_categorias")){
+	f_fim = moment(param.filtro_fim, "YYYY-MM-DD").toDate();
+}
 function hideBlocks(blocks, offset) {
 	blocks.each(function(){
 		if ($(this).offset().top > $(window).scrollTop()+$(window).height()*offset){
@@ -32,7 +38,7 @@ function renderizar(conteudo) {
 			</div>
 
 			<div class="cd-timeline-content evento_timeline" onclick="gerenciar_evento(this);" data-evento="${conteudo.id_evento}">
-				<h2>${conteudo.titulo}</h2>
+				<h2>${conteudo.descricao}</h2>
 				<p>${conteudo.descricao}</p>
 				<span class="mdl-chip mdl-chip-valor">
 				    <span class="mdl-chip__text valor_evento" data-valor="${conteudo.valor}">R$ ${conteudo.valor}</span>
@@ -47,12 +53,21 @@ function renderizar(conteudo) {
 db.carga_feita.then(function() {
 	return Promise.all([
 		db.eventos.toArray(),
-		db.categorias.toArray()
+		db.categorias.orderBy('titulo').toArray()
 	])
 }).then(function(data) {
     eventos = data[0];
     categorias = data[1];
-    
+	console.log(localStorage.getItem('jaMostrou'));
+    if (!eventos.length && localStorage.getItem('jaMostrou') != "true"){
+		bootbox.alert("Novo por aqui? Comece criando um evento para visualizar na timeline!", function(){
+			$('#mais_opcoes').click();
+			$('#add_evento').attr('data-original-title', 'Pressione para inserir seu evento');
+			$('#add_evento[data-toggle="tooltip"]').tooltip("show");
+			$('#add_evento').removeAttr('data-original-title');			
+			localStorage.setItem('jaMostrou', "true");
+		});
+	}	
     eventos.forEach(renderizar);
     
     timelineBlocks = $('.cd-timeline-block');		
@@ -79,7 +94,7 @@ function calculaValor(){
 	$("span.valor_evento:visible").each(function(e){
 		soma += $(this).data("valor");		
 	});
-	$(".label-soma-valor").html("R$ " + soma);
+	$(".label-soma-valor").html("R$ " + soma.toFixed(2).replace(".",","));
 }
 
 $("#pesquisar").on("input", function(){
@@ -117,3 +132,20 @@ $("#pesquisar-icone").on("click", function(){
 	$("#pesquisar").toggleClass("esconder");
 	$(".logo").toggleClass("sem-titulo");
 });
+
+
+/*Funçoes para o filtro de evt*/ 
+
+$('#filtrar_evento').on('click',function(){
+	window.location.href = "filtrar.html";
+	buscar_categorias_filtro();
+});
+function buscar_categorias_filtro(){
+	categorias.forEach(function(c){
+		$(".modal-filtro-evento").append(`
+			<button class='btn' style='background-color: ${c.cor}';>
+				<i class='material-icons'>${c.icone}</i> ${c.titulo}
+			</button>
+		`);
+	});
+}

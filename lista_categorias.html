@@ -8,14 +8,21 @@
 	<link rel="stylesheet" href="css/fonts.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/material-kit.css"/>
-	<link rel="icon" href="img/timeline-icon.png">
+	<link rel="icon" href="img/tl-icon.png?2">
     
 	<title>Timeline IT</title>
+    <script>
+        var param = {};
+        window.location.search.substr(1).split('&').forEach(function (par) {
+            var p = par.split('=');
+            param[p[0]] = p[1];
+        });
+    </script>
 </head>  
 <body style="padding-top: 70px;">
     <nav class="navbar" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999; height: 70px;">
         <div class="container-fluid">
-            <a class="logo" href="#"></a>
+            <a class="logo" href="index.html"></a>
             
             <a class="navbar-item" data-toggle="collapse" data-target="#dropdown-menu">
                 <i class="material-icons">list</i>
@@ -23,14 +30,15 @@
         </div>
     </nav>
     <div id="dropdown-menu" class="list-group collapse out">
-        <a href="lista_categorias.html" class="list-group-item">Novo evento</a>
+        <a href="lista_categorias.html?redirect=evento" class="list-group-item">Novo evento</a>
         <a href="categoria.html" class="list-group-item">Nova categoria</a>
+        <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
     </div>
 	<div class="container">
 		<h3>Olá, Mariana</h3>
-        <h6>Selecione a subcategoria desejada</h6>
+        <h6>Selecione a categoria desejada</h6>
         <div class="row lista-categorias"></div>
-        <a class="btn btn-simple btn-success" href="editar_categoria.html"><i class="material-icons">add</i> Incluir categoria</a>
+        <a class="btn btn-simple btn-success" href="categoria.html"><i class="material-icons">add</i> Incluir categoria</a>
     </div>
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<!-- <script src="js/modernizr.js"></script>  -->
@@ -42,10 +50,10 @@
     <script src="js/dexie.js"></script> 
     <script src="js/db.js"></script> 
 	<script src="js/main.js"></script>
-    <script>
-        db.categorias.each(function(c){
+    <script>        
+        db.categorias.where("excluido").notEqual(1).each(function(c){
             $(".lista-categorias").append(`<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <a href="evento.html?id_categoria=${c.id_categoria}" class="btn btn-categoria" style="background-color: ${c.cor};"><i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br><span style="font-size: 1em;">${c.titulo}</span></a>  
+                        <a href="${param.redirect}.html?id_categoria=${c.id_categoria}" class="btn btn-categoria" style="background-color: ${c.cor};"><i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br><span style="font-size: 1em;">${c.titulo}</span></a>  
                     </div>`);  
         });  
     </script>

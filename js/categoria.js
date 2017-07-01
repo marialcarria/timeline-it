@@ -1,23 +1,70 @@
+var categoria = {};
+var subcategorias = [];
+var repeticoes = {
+    "Y": "por ano",
+    "M": "por mês",
+    "W": "por semana",
+    "D": "por dia",
+    "H": "por hora",
+    "m": "por minuto"};
+
+console.log(param.id_categoria);
+if (param.id_categoria){
+    $("#excluir_categoria").show();
+    db.categorias.where('id_categoria').equals(parseInt(param.id_categoria)).first().then(
+        function (data){
+            categoria = data;
+            buscar_dados_categoria();
+        }
+    ).catch(
+        function(err){
+            console.error(err);
+        }
+    );
+}
+function buscar_dados_categoria(){
+    $("#nome_categoria").val(categoria.titulo);
+    $("#nome_cor").append(`<div style="border: 1px solid #E9E9E9; width: 25px; height: 25px; background-color: ${categoria.cor};"></div>`);
+    $("#nome_icone").append(`<i class="material-icons">${categoria.icone}</i>`);
+    $("#valor_cor").val(categoria.cor);
+    $("#valor_icone").val(categoria.icone);
+    db.subcategorias.where('id_categoria').equals(categoria.id_categoria).toArray().then(function (data) {
+        subcategorias = data;
+        subcategorias.forEach(function (c) {
+            add_subcategoria(c.titulo, c.repetir, false, c.id_subcategoria);
+        });
+    });
+}
+
 $('#add_subcategoria').on('click', function(){    
     var subcategoria = $("#input_subcategorias").val();
-    var repeticao = $("#subcategoria_repeticao option:selected").text();
+    var repeticao = $("#subcategoria_repeticao").val();
     if (subcategoria == "" || subcategoria == null){
         alert("Título inválido para a subcategoria.");
     } else {
-        $(".lista_subcategorias").show();
-        $('.lista_subcategorias').append(
-            `<tr class="subcategoria_item">
-                <td class="titulo_subcategoria"> ${subcategoria} </td>
-                <td class="repeticao_subcategoria"> ${repeticao} </td>
-                <td onclick="excluir(this)"><i class="material_icons excluir_subcategoria icone_subcategoria">clear</i></td>
-            </tr>`);
+        add_subcategoria(subcategoria, repeticao, true);    
     }
     $("#input_subcategorias").val("");
 });
 
-function excluir(val){
-    $(val).parent("tr").remove();
-    if ($(".subcategoria_item").length == 0){
+function add_subcategoria(subcategoria, repeticao, insercao, id){
+    $(".lista_subcategorias").show();
+    $('.lista_subcategorias').append(
+            `<tr data-id="${id || ""}" class="subcategoria_item ${insercao? "inserir" : ""}">
+                <td class="titulo_subcategoria"> ${subcategoria} </td>
+                <td class="repeticao_subcategoria"> ${descricao_repetir(repeticao)} </td>
+                <td onclick="excluir(this)"><i class="material_icons excluir_subcategoria icone_subcategoria">clear</i></td>
+            </tr>`);
+}
+
+function excluir(val){ 
+    var pai = $(val).parent("tr")
+    if(pai.hasClass("inserir")){
+        pai.remove();
+    } else {
+        pai.addClass("excluir").hide();
+    }
+    if ($(".subcategoria_item:visible").length == 0){
         $(".lista_subcategorias").hide();
     }
 }
@@ -35,8 +82,11 @@ $("#gravar_categoria").on("click", function(){
         categoria.titulo = nome_categoria;
         categoria.icone = $("#valor_icone").val() || "playlist_add_check";
         categoria.cor = $("#valor_cor").val() || "#126286";
-        categoria.ativo = 1;
-        db.categorias.add(categoria).then(function(id){
+        if (param.id_categoria){
+            categoria.id_categoria = parseInt(param.id_categoria);
+        }
+        categoria.excluido = 0;
+        db.categorias.put(categoria).then(function(id){
             //incluir subcategorias
             add_subcategorias(id);            
         }).catch(function(e){
@@ -47,20 +97,34 @@ $("#gravar_categoria").on("click", function(){
 });
 
 function add_subcategorias(id){
-    alert(id);    
     var array_subcategorigas = [];
-    $('.lista_subcategorias tr:not(.header_subcategorias)').each(function() {
+    var i = 0;
+    $('.lista_subcategorias tr.inserir').each(function() {
+        console.log(++i);
         var obj_subcategorias = {};
         var titulo = $(this).find('.titulo_subcategoria').text();
-        var repeticao = $(this).find('.repeticao_subcategoria').text();
+        console.log(titulo);
+        var repeticao = $(this).find('.repeticao_subcategoria').val();
+        console.log(repeticao);
         obj_subcategorias = {"titulo": titulo, "id_categoria": id, "repetir": repeticao, "ativo": 1};
+        console.log(obj_subcategorias);
         array_subcategorigas.push(obj_subcategorias);
     });
-    db.subcategorias.bulkAdd(array_subcategorigas).then(function(){
-        alert("Categoria incluída.");
-        window.location.href = "lista_categorias.html";
-    }).catch(function(e){
-        console.log(e);
+    console.log(array_subcategorigas);
+    Promise.all([
+        db.subcategorias.bulkAdd(array_subcategorigas),
+        db.subcategorias.bulkDelete(
+            $('.lista_subcategorias tr.excluir').map(function(){
+                return parseInt(this.dataset.id);
+            }).get()
+        )            
+    ]).then(function() {
+        bootbox.alert("Categoria incluída", function() {
+            window.location.href = "categoria.html?id_categoria="+ id;
+        });
+    }).catch(function(err) {
+        bootbox.alert('Ocorreu um erro');
+        console.error(err);
     });
 }
 
@@ -93,3 +157,18 @@ $('#selecionar_cor').on('click', function() {
             modal.show();
         });
 
+$("#excluir_categoria").on("click", function(){
+    bootbox.confirm("Excluir categoria?", function(){
+        db.categorias.update(parseInt(param.id_categoria), {"excluido": 1}).then(function(){
+            bootbox.alert("Categoria excluída", function(){
+                window.location.href = "index.html";
+            });
+        });
+    });
+});
+
+
+function descricao_repetir(tipo){
+    console.log(repeticoes, tipo);
+    return repeticoes[tipo] || "não repetir";
+}

@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="icon" href="img/tl-icon.png?2">
     <title>Timeline IT</title>
+    <script>
+        var param = {};
+        window.location.search.substr(1).split('&').forEach(function (par) {
+            var p = par.split('=');
+            param[p[0]] = p[1];
+        });
+    </script>
 </head>
 
 <body style="padding-top: 70px;">
@@ -28,8 +35,9 @@
         </div>
     </nav>
     <div id="dropdown-menu" class="list-group collapse out">
-        <a href="lista_categorias.html" class="list-group-item">Novo evento</a>
+        <a href="lista_categorias.html?redirect=evento" class="list-group-item">Novo evento</a>
         <a href="categoria.html" class="list-group-item">Nova categoria</a>
+        <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
     </div>
 
     <div class="container-fluid">
@@ -43,7 +51,7 @@
             <button class="btn btn-fab btn-fab-mini btn-round" id="filtrar_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
                 <i class="material-icons">filter_list</i>
             </button><br>
-            <a href="lista_categorias.html" class="btn btn-fab btn-fab-mini btn-success btn-round" id="add_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
+            <a href="lista_categorias.html?redirect=evento" class="btn btn-fab btn-fab-mini btn-success btn-round" id="add_evento" style="display: none; margin: auto; margin-bottom: 0.5em;"   data-toggle="tooltip" data-placement="bottom" title="">
                 <i class="material-icons">add</i>
             </a><br>
             <button class="btn btn-fab btn-round" id="mais_opcoes" style="display: inline-block;">
@@ -64,6 +72,7 @@
     <script src="js/db.js"></script>
 
     <script src="js/index.js"></script>
+    <script src="js/bootbox.min.js"></script>
     <!--
     <script>
         db.eventos.hook('reading', function (obj) {
