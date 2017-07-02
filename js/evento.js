@@ -26,12 +26,15 @@ var promise_evento = new Promise(function(resolve, reject){
 });
 
 $("#excluir_evento").on("click",function(){
-    bootbox.confirm("Excluir evento?", function(){
-        db.eventos.delete(parseInt(param.id_evento)).then(function(){
-            bootbox.alert("Evento excluído", function(){
-                window.location.href = "index.html";
+    bootbox.confirm("Excluir evento?", function(result){
+        console.log(result);
+        if (result){
+            db.eventos.delete(parseInt(param.id_evento)).then(function(){
+                bootbox.alert("Evento excluído", function(){
+                    window.location.href = "index.html";
+                });
             });
-        });
+        }
     });
 });
 

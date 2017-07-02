@@ -2,12 +2,8 @@ var timelineBlocks;
 var offset = 0.8;
 var eventos, categorias;
 var f_ini, f_fim, f_categorias;
-if(param.filtro_ini){// || localStorage.getItem("filtro_categorias")){
-	f_ini = moment(param.filtro_ini, "YYYY-MM-DD").toDate();
-}
-if(param.filtro_fim){// || localStorage.getItem("filtro_categorias")){
-	f_fim = moment(param.filtro_fim, "YYYY-MM-DD").toDate();
-}
+
+
 function hideBlocks(blocks, offset) {
 	blocks.each(function(){
 		if ($(this).offset().top > $(window).scrollTop()+$(window).height()*offset){
@@ -51,8 +47,11 @@ function renderizar(conteudo) {
 	}
 
 db.carga_feita.then(function() {
+	return filtrar();
+}).then(function(query) {
+	console.log(query);
 	return Promise.all([
-		db.eventos.toArray(),
+		query.sortBy('ts_ini'),
 		db.categorias.orderBy('titulo').toArray()
 	])
 }).then(function(data) {
@@ -89,6 +88,40 @@ function gerenciar_evento(evt){
 	window.location.href = "evento.html?id_evento=" + $(evt).attr("data-evento");
 }
 
+function filtrar(){
+	var query;
+	var filtros = localStorage.getItem("filtros");
+	if (filtros){
+		filtros = JSON.parse(filtros);
+		if(filtros["data_ini"] && filtros["data_fim"]) {
+			query = db.eventos.where('ts_ini').between(moment(filtros["data_ini"]).toDate(), moment(filtros["data_fim"]).toDate(), true, false)
+								 .or('ts_fim').between(moment(filtros["data_ini"]).toDate(), moment(filtros["data_fim"]).toDate(), true, false);
+
+			if(filtros["categorias"]) {
+				query = query.and(function(e) {
+					return (filtros["categorias"].indexOf(e.categoria) !== -1);
+				});
+			}
+		} else if(filtros["data_ini"] && !filtros["data_fim"]) {
+			query = db.eventos.where('ts_fim').aboveOrEqual(moment(filtros["data_ini"]).toDate());
+
+			if(filtros["categorias"]) {
+				query = query.and(function(e) {
+					return (filtros["categorias"].indexOf(e.categoria) !== -1);
+				});
+			}
+		} else if(!filtros["data_ini"] && filtros["data_fim"]) {
+			query = db.eventos.where('ts_ini').belowOrEqual(moment(filtros["data_fim"]).toDate());
+		} else if(filtros["categorias"]) {
+			query = db.eventos.where('categoria').anyOf(filtros["categorias"]);
+		}
+	} 
+	if(!query) {
+		return db.eventos.toCollection();
+	}
+	return query;
+}
+
 function calculaValor(){
 	var soma = 0;
 	$("span.valor_evento:visible").each(function(e){
@@ -119,9 +152,10 @@ $("#pesquisar").on("input", function(){
 					.anyOf(result[1])
 					.primaryKeys();
 	}).then(function(ids) {
-		return db.eventos.filter(function(e){
+		var query = filtrar();
+		return query.filter(function(e){
 			return rgx.test(e.titulo) || rgx.test(e.descricao) || ids.indexOf(e.id_evento) !== -1
-		}).toArray()	
+		}).sortBy('ts_ini');
 	}).then(function(eventos){
 		$("section").empty();
 		eventos.forEach(renderizar);

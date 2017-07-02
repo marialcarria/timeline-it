@@ -12,13 +12,26 @@
     
 	<title>Timeline IT</title>
 </head>  
-<body>
+<body style="padding-top: 70px;">
+    <nav class="navbar" role="navigation" style="position: fixed; width: 100vw; top: 0; z-index: 9999; height: 70px;">
+        <div class="container-fluid">
+            <a class="logo" href="index.html"></a>
+            
+            <a class="navbar-item" data-toggle="collapse" data-target="#dropdown-menu">
+                <i class="material-icons">list</i>
+            </a>
+        </div>
+    </nav>
+    <div id="dropdown-menu" class="list-group collapse out">
+        <a href="lista_categorias.html?redirect=evento" class="list-group-item">Novo evento</a>
+        <a href="categoria.html" class="list-group-item">Nova categoria</a>
+        <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
+    </div>
     <h3>Filtrar eventos</h3>
 	<div class="container">
         <h6>Selecione uma ou mais categorias</h6>
-        <div class="row lista-categorias filtro"></div>        
         <div class="row">
-            <div class="col-xs-12" style="margin-left: 14px;">
+            <div class="col-xs-8" style="margin-left: 16px; margin-right: -16px;">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="periodo_filtro" id="periodo_filtro" checked>
@@ -26,28 +39,29 @@
                     </label>                
                 </div> 
             </div>           
-        </div>    
-        <div class="row">
+        </div>      
+        <div class="row" style="display: none;">
             <div class="col-xs-6">
                 <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">date_range</i>
-                    </span>
-                    <div class="form-group is-empty"><input class="form-control" id="filtro_ini" type="date" value="" disabled><span class="material-input"></span></div>
+                    <input class="form-control" id="filtro_ini" type="date" value="">
                 </div>
             </div>
             <div class="col-xs-6">
                 <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">date_range</i>
-                    </span>
-                    <div class="form-group is-empty"><input class="form-control" id="filtro_fim" type="date" value="" disabled><span class="material-input"></span></div>
+                    <input class="form-control" id="filtro_fim" type="date" value="">
                 </div>
             </div>
-        </div>    
-        <a class="btn btn-raised btn-success pull-right" id="aplicar_filtros"><i class="material-icons">filter_list</i> Filtrar</a>
-        <a class="btn btn-simple btn-danger pull-right" href="index.html"><i class="material-icons">close</i> Cancelar</a>
+        </div>          
+        <div class="row lista-categorias filtro"></div>
     </div>
+    <div style="position: fixed; bottom: 0; z-index: 9999; background-color:#126286; padding: 0; margin: 0; width: 100%;">    
+        <div class="container filtrar-div">         
+            <!--<a class="btn btn-raised btn-success pull-right" id="aplicar_filtros"><i class="material-icons">filter_list</i> Filtrar</a>
+            <a class="btn btn-raised btn-danger pull-right" href="index.html"><i class="material-icons">close</i> Cancelar</a>-->
+            <a class="col-xs-6 filtrar-btn" style="border-right: 1px solid white;" href="index.html"><i class="material-icons">close</i> Cancelar</a>
+            <a class="col-xs-6 filtrar-btn" id="aplicar_filtros"><i class="material-icons">filter_list</i> Filtrar</a>
+        </div>
+    </div>    
 	<script src="js/jquery-3.1.1.min.js"></script>
 	<!-- <script src="js/modernizr.js"></script>  -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -58,6 +72,7 @@
     <script src="js/dexie.js"></script> 
     <script src="js/db.js"></script> 
 	<script src="js/main.js"></script>
+	<script src="js/moment.js"></script>
 	<script src="js/bootbox.min.js"></script>
     <script>
         db.categorias.each(function(c){
@@ -83,20 +98,29 @@
             categorias_selecionadas.push(id_categoria);
         }
         $("#periodo_filtro").on("change", function(){
-            if (!$(this).prop("checked")){
-                $("#filtro_ini,#filtro_fim").attr("disabled", false);
+            if ($(this).prop("checked")){
+                $("#filtro_ini").parents(".row").hide();
             } else{
-                $("#filtro_ini,#filtro_fim").removeAttr("disabled");
+                $("#filtro_ini").parents(".row").show();
             }
         });
         $("#aplicar_filtros").on("click", function(){
-            categorias_selecionadas = categorias_selecionadas.filter( function( item, index, inputArray ) {
-                return inputArray.indexOf(item) == index;
-            });
-            localStorage.setData("filtro_categorias", categorias_selecionadas.toString());
-            var filtro_ini = $("#filtro_ini").val();
-            var filtro_fim = $("#filtro_ini").val();
-            window.location.href = "index.html?ini=" + filtro_ini + "&fim=" + fim;
+            var filtros = {};
+            if (categorias_selecionadas.length){
+                filtros["categorias"] = categorias_selecionadas.filter( function( item, index, inputArray ) {
+                    return inputArray.indexOf(item) == index;
+                });
+            } else {
+                filtros["categorias"] = false;
+            }
+            if ($("#filtro_fim").val()){
+                filtros["data_fim"] = moment($("#filtro_fim").val()).add(1,'days').format('YYYY-MM-DD');
+            } else {
+                filtros["data_fim"] = "";
+            }
+            filtros["data_ini"] = $("#filtro_ini").val();
+            localStorage.setItem("filtros", JSON.stringify(filtros));
+            window.location.href = "index.html";
         });
     </script>
 <!--    <script type="text/javascript" src="cordova.js"></script>-->

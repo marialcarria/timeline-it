@@ -84,6 +84,8 @@ db.on('ready', function () {
                     });
                 }).then(function () {
                     console.log ("Transaction committed");
+                }).catch(function(err) {
+                    throw err;
                 });
             }
         })
@@ -94,10 +96,11 @@ db.on('ready', function () {
             } else {
                 console.log("Não tem eventos, baixando....");
                 return new Dexie.Promise(function (resolve, reject) {
-                    $.ajax(`${ip}/eventos.json`, {
+                    $.ajax(`${ip}/eventos.json?2`, {
                         type: 'get',
                         dataType: 'json',
                         error: function (xhr, textStatus) {
+                            console.log(arguments);
                             // Rejecting promise to make db.open() fail.
                             reject(textStatus);
                         },
@@ -118,12 +121,15 @@ db.on('ready', function () {
                     });
                 }).then(function () {
                     console.log ("Transaction committed");
-                });
+                }).catch(console.error);
             }
         })
     }).then(function() {
         // Promise.resolve(db.carga_feita);
         db.finalizar_carga();
+    }).catch(function(err) {
+        console.error(err);
+        throw err;
     });
 });
 
