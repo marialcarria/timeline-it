@@ -1,6 +1,6 @@
 var db = new Dexie('timeline_it');
 //var ip = "localhost:8081";
-var ip = '/data';
+var ip = './data';
 db.version(1).stores({
     categorias: '++id_categoria,titulo,icone',
     subcategorias: '++id_subcategoria,titulo,id_categoria',

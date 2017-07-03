@@ -10,14 +10,14 @@
         "id_categoria": 2,
         "titulo": "Veículo",
         "icone": "directions_car",
-        "cor": "#dbab70",
+        "cor": "#9B2335",
         "excluido": 0
     },
     {
         "id_categoria": 3,
         "titulo": "Educação",
         "icone": "book",
-        "cor": "#2d6395",
+        "cor": "#004B8D",
         "excluido": 0
     },
     {
@@ -31,15 +31,15 @@
         "id_categoria": 5,
         "titulo": "Lazer",
         "icone": "local_bar",
-        "cor": "#d25b73",
+        "cor": "#CE3175",
         "excluido": 0
     },
     {
         "id_categoria": 6,
         "titulo": "Outros",
         "icone": "more_vert",
-        "cor": "#00a499",
-        "excluido": 90
+        "cor": "#66757F",
+        "excluido": 0
     },
     {
         "id_categoria": 7,
@@ -52,7 +52,7 @@
         "id_categoria": 8,
         "titulo": "Pessoal",
         "icone": "face",
-        "cor": "#898E8C",
+        "cor": "#DD4132",
         "excluido": 0
     },
     {
@@ -66,21 +66,21 @@
         "id_categoria": 10,
         "titulo": "Alimentação",
         "icone": "local_dining",
-        "cor": "#af2370",
-        "excluido": 10
+        "cor": "#D8AE47",
+        "excluido": 0
     },
     {
         "id_categoria": 11,
         "titulo": "Viagem",
         "icone": "local_taxi",
         "cor": "#672E3B",
-        "excluido": 10
+        "excluido": 0
     },
     {
         "id_categoria": 12,
         "titulo": "Comunicação",
         "icone": "local_phone",
-        "cor": "#9C9A40",
-        "excluido": 10
+        "cor": "#006E51",
+        "excluido": 0
     }
 ]

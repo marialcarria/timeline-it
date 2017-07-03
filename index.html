@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -33,8 +34,12 @@
         <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-bottom: calc(40px + 0.5em)"> <!-- padding por causa do rodape -->
+        <button class="btn btn-xs btn-danger pull-right btn-remover-filtros" style="display: none;"><i class="material-icons">filter_list</i>remover filtros</button>
         <section id="cd-timeline"></section>
+        <button id="carregar-mais" class="btn btn-block btn-primary">
+            Carregar mais eventos
+        </button>
     </div>
     <div class="rodape"> 
         <div class="div-soma-valor">
@@ -66,6 +71,9 @@
 
     <script src="js/index.js"></script>
     <script src="js/bootbox.min.js"></script>
+    <script src="js/faker.js"></script>
+    <script src="js/criar-eventos-teste.js"></script>
+    <script src="cordova.js"></script>
     <!--
     <script>
         db.eventos.hook('reading', function (obj) {
