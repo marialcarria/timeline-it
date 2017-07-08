@@ -24,33 +24,26 @@ db.on('ready', function () {
             console.log("Já tenho categorias");
         } else {
             console.log("Não tenho categorias. Baixando...");
-            // We want framework to continue waiting, so we encapsulate
-            // the ajax call in a Dexie.Promise that we return here.
             return new Dexie.Promise(function (resolve, reject) {
                 $.ajax(`${ip}/categorias.json`, {
                     type: 'get',
                     dataType: 'json',
                     error: function (xhr, textStatus) {
-                        // Rejecting promise to make db.open() fail.
                         reject(textStatus);
                     },
                     success: function (data) {
-                        // Resolving Promise will launch then() below.
                         resolve(data);
                     }
                 });
             }).then(function (data) {
-                // By returning the db.transaction() promise, framework will keep
-                // waiting for this transaction to commit before resuming other
-                // db-operations.
                 return db.transaction('rw', db.categorias, function () {
                     data.forEach(function (item) {
-                        console.log("Adding categoria: " + JSON.stringify(item));
+                        console.log("Adicionando categoria: " + JSON.stringify(item));
                         db.categorias.add(item);
                     });
                 });
             }).then(function () {
-                console.log ("Transaction committed");
+                console.log ("Transação commitada.");
             });
         }
     }).then(function() {

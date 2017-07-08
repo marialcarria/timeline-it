@@ -7,34 +7,23 @@ $("#lista_subcategorias").hide();
 /*notificações do device*/ 
 var info = null;
 
-document.addEventListener("deviceready", function(){
-	if(!localStorage.getItem("rp_data")){
-		var rp_data = {data: []};
-		localStorage.setItem("rp_data", JSON.stringify(rp_data));
-	}
-
-	info = JSON.parse(localStorage.getItem("rp_data"));
-}, false);
-
-
 var sound = 'file://sound.mp3';
-var date = new Date('2017-07-02T22:30:00-03:00');
-function schedule(id, title, message, schedule_time){
+function schedule(id, title, message, date){
 	cordova.plugins.notification.local.schedule({
 		/*id: id,
 		title: title,
 		message: message,
 		at: schedule_time*/
         id: 1,
-        title: "teste titulo",
-        message: "teste txt mensagem",
-        firstAt: date//,
+        title: title,
+        message: message,
+        sound: 'file://sounds/reminder.mp3',
+        icon : 'res://tl-icon.png',
+        smallicon: 'res://tl-icon.png',
+        at: date
         // every: 5,
         // sound: sound,
 	});
-	var array = [id, title, message, schedule_time];
-	info.data[info.data.length] = array;
-	localStorage.setItem("rp_data", JSON.stringify(info));
 	bootbox.alert("Notificação incluída", function(){
 		return;
 	});
@@ -165,22 +154,26 @@ $("#btn_dt_final").click(function () {
     }
     var dia_inteiro = $("#dia_inteiro").prop("checked");
     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
-    add_horas(dia_inteiro, tem_data_fim);
+    if (!param.id_evento){
+        add_horas(dia_inteiro, tem_data_fim);
+    }
 });
 
 //dia inteiro 
 $("#dia_inteiro").on("change", function () {
     var dia_inteiro = $("#dia_inteiro").prop("checked");
     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
-    add_horas(dia_inteiro, tem_data_fim);
+    if (!param.id_evento){
+        add_horas(dia_inteiro, tem_data_fim);
+    }
     $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
 });
 
 function add_horas(dia_inteiro, tem_data_fim){
     if(!dia_inteiro){
-        $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("hh:00"));
+        $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("HH:00"));
         if(tem_data_fim){
-            $("#evt_hr_fim").val(moment(new Date()).add(2,'hours').format("hh:00"));
+            $("#evt_hr_fim").val(moment(new Date()).add(2,'hours').format("HH:00"));
         } else {
             $("#evt_hr_fim").val("");
         }
@@ -225,11 +218,11 @@ function buscar_dados_evento(){
     $("#valor_evento_hidden").val(parseFloat($("#valor_evento").val()).toFixed(2));
     $("#valor_evento").val(evento.valor.toFixed(2)).trigger('input');                
     $("#evt_dt_ini").val(moment(evento.ts_ini).format("YYYY-MM-DD"));
-    $("#evt_hr_ini").val(moment(evento.ts_ini).format("hh:mm"));
+    $("#evt_hr_ini").val(moment(evento.ts_ini).format("HH:mm"));
     if(evento.ts_fim){
         $("#btn_dt_final").click();
         $("#evt_dt_fim").val(moment(evento.ts_fim).format("YYYY-MM-DD"));
-        $("#evt_hr_fim").val(moment(evento.ts_fim).format("hh:mm"));
+        $("#evt_hr_fim").val(moment(evento.ts_fim).format("HH:mm"));
     }
     $("#dia_inteiro").prop("checked", evento.dia_inteiro).trigger('change');
     $("#quantidade_notificacao").val(evento.notificacao.quantidade);

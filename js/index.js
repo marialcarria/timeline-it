@@ -165,10 +165,12 @@ function filtrar(){
 			return query.filter(function(e){
 				var ok = false;
 				if(e.titulo) {
-					ok = ok || rgx.text(removerAcentos(e.titulo));
+					//ok = rgx.test(e.titulo);
+					ok = ok || rgx.test(removerAcentos(e.titulo));
 				}
 				if(e.descricao) {
-					ok = ok || rgx.text(removerAcentos(e.titulo));
+					//ok = rgx.test(e.descricao);
+					ok = ok || rgx.test(removerAcentos(e.descricao));
 				}
 				ok = ok || ids.indexOf(e.id_evento) !== -1;
 

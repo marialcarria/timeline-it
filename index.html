@@ -24,7 +24,7 @@
             </a>
             <a id="pesquisar-icone" class="navbar-item">
                 <i class="material-icons">search</i>
-            </a>
+            </a>            
             <input id="pesquisar" class="input-pesquisar esconder">
         </div>
     </nav>
@@ -35,13 +35,17 @@
     </div>
 
     <div class="container-fluid" style="padding-bottom: calc(40px + 0.5em)"> <!-- padding por causa do rodape -->
-        <button class="btn btn-xs btn-danger pull-right btn-remover-filtros" style="display: none;"><i class="material-icons">filter_list</i>remover filtros</button>
+        <button class="btn btn-xs btn-danger
+         pull-right btn-remover-filtros" style="display: none;"><i class="material-icons">filter_list</i>remover filtros</button>
         <section id="cd-timeline"></section>
         <button id="carregar-mais" class="btn btn-block btn-primary">
             Carregar mais eventos
         </button>
     </div>
     <div class="rodape"> 
+<!--
+        <button class="btn btn-raised btn-sm btn-danger" onclick="novos_eventos();">+ eventos</button>-->
+
         <div class="div-soma-valor">
             <span class="label-soma-valor"></span>
         </div>
@@ -74,6 +78,15 @@
     <script src="js/faker.js"></script>
     <script src="js/criar-eventos-teste.js"></script>
     <script src="cordova.js"></script>
+    <script>
+        function novos_eventos(){        
+            setTimeout(function(){
+                location.reload();
+            }, 2000);
+            createEvents(6);                         
+        }
+         //novos_eventos();
+    </script>
     <!--
     <script>
         db.eventos.hook('reading', function (obj) {
