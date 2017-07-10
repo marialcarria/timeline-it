@@ -5,6 +5,7 @@ var f_ini, f_fim, f_categorias;
 var eventos_offset = 0;
 var eventos_limit = 20;
 var pesquisando = false;
+var eventos_pendentes = [];
 
 if(localStorage.getItem('filtros')){
     $(".btn-remover-filtros").show();
@@ -56,19 +57,78 @@ function mostrar_eventos() {
 		}
 
 		var eventos_renderizar = [];
+		var ultima_data = eventos.length === 0 ? null : eventos[eventos.length-1].ts_ini;
+
+		eventos_pendentes.forEach(function(evento, i) {
+			var d = moment(evento.ts_ini);
+			var o;
+			while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= ultima_data && d.toDate() <= evento.ts_fim) {
+				o = Object.assign({}, evento);
+				o.ts_ini = d.toDate();
+				eventos_renderizar.push(o);
+			}
+			if(d.toDate() <= evento.ts_fim) {
+				eventos_pendentes[i].ts_ini = d.toDate();
+			} else {
+				eventos_pendentes[i].ts_ini = null;
+			}
+		});
+		eventos_pendentes = eventos_pendentes.filter(function(evento) {
+			return evento.ts_ini !== null;
+		})
+
 		eventos.forEach(function(evento) {
 			eventos_renderizar.push(evento);
-			// console.log(evento.repetir);
+			if(evento.repetir) {
+				var d = moment(evento.ts_ini);
+				var o;
+				while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= ultima_data && d.toDate() <= evento.ts_fim) {
+					o = Object.assign({}, evento);
+					o.ts_ini = d.toDate();
+					eventos_renderizar.push(o);
+				}
+				if(d.toDate() <= evento.ts_fim) {
+					o = Object.assign({}, evento);
+					o.ts_ini = d.toDate();
+					eventos_pendentes.push(o);
+				}
+			}
 		})
 
 		if(eventos_renderizar.length === 0) {
 			$("section").append("<span style='padding-left: 35px;'>Nenhum evento encontrado.</span>");
 		} else {
+			eventos_renderizar.sort(function(a,b) {
+				if (a.ts_ini < b.ts_ini)
+					return -1;
+				if (a.ts_ini > b.ts_ini)
+					return 1;
+				return 0;
+			});
 			eventos_renderizar.forEach(renderizar);
 		}
 
 		if(!pode_ter_mais_eventos) {
 			$('#carregar-mais').hide();
+			eventos_renderizar = [];
+			eventos_pendentes.forEach(function(evento, i) {
+				var d = moment(evento.ts_ini);
+				var o;
+				while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= evento.ts_fim) {
+					o = Object.assign({}, evento);
+					o.ts_ini = d.toDate();
+					eventos_renderizar.push(o);
+				}
+			});
+			eventos_pendentes = [];
+			eventos_renderizar.sort(function(a,b) {
+				if (a.ts_ini < b.ts_ini)
+					return -1;
+				if (a.ts_ini > b.ts_ini)
+					return 1;
+				return 0;
+			});
+			eventos_renderizar.forEach(renderizar);
 		} else {
 			$('#carregar-mais').show();
 			eventos_offset+= eventos_limit;
@@ -192,6 +252,7 @@ function calculaValor(){
 
 function onPesquisar(texto) {
 	eventos_offset = 0;
+	eventos_pendentes = [];
 	pesquisando = (texto != '');
 	$('#cd-timeline').empty();
 	mostrar_eventos();
@@ -210,6 +271,7 @@ $("#pesquisar-icone").on("click", function(){
 		if($('#pesquisar').val() != '') {
 			$('#pesquisar').val('');
 			eventos_offset = 0;
+			eventos_pendentes = [];
 			$('#cd-timeline').empty();
 			mostrar_eventos();
 		}
