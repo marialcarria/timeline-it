@@ -10,10 +10,6 @@ var info = null;
 var sound = 'file://sound.mp3';
 function schedule(id, title, message, date){
 	cordova.plugins.notification.local.schedule({
-		/*id: id,
-		title: title,
-		message: message,
-		at: schedule_time*/
         id: 1,
         title: title,
         message: message,
@@ -214,7 +210,7 @@ function carregar_dados_repeticao(){
 }
 
 function buscar_dados_evento(){
-    $("#nome_evento").val(evento.titulo || evento.descricao);
+    $("#nome_evento").val(evento.titulo);
     $("#valor_evento_hidden").val(parseFloat($("#valor_evento").val()).toFixed(2));
     $("#valor_evento").val(evento.valor.toFixed(2)).trigger('input');                
     $("#evt_dt_ini").val(moment(evento.ts_ini).format("YYYY-MM-DD"));
@@ -243,8 +239,8 @@ $("#gravar_evento").on('click', function () {
     if(param.id_evento){
         e.id_evento = evento.id_evento;
     }
-    e.titulo = $("#input_subcategoria").val();
-    e.descricao =  $("#nome_evento").val() || "";
+    e.titulo = $("#nome_evento").val() || $("#input_subcategoria").val();
+   // e.descricao =  $("#nome_evento").val() || "";
     e.subcategoria = parseInt($("#id_subcategoria_selecionada").val());
     e.categoria = parseInt(param.id_categoria);
     e.dia_inteiro = $("#dia_inteiro").prop("checked");    

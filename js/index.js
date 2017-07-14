@@ -27,7 +27,7 @@ function renderizar(conteudo) {
 			</div>
 
 			<div class="cd-timeline-content evento_timeline" onclick="gerenciar_evento(this);" data-evento="${conteudo.id_evento}">
-				<h2>${conteudo.descricao || subcategoria.titulo}</h2>
+				<h2>${conteudo.titulo || subcategoria.titulo}</h2>
                 <p>${subcategoria.titulo}</p>
 				<span class="mdl-chip mdl-chip-valor">
 				    <span class="mdl-chip__text valor_evento" data-valor="${conteudo.valor}">R$ ${conteudo.valor}</span>
@@ -198,13 +198,13 @@ function filtrar(){
 		}
 	} 
 	if(query === undefined) {
-		query = db.eventos.toCollection();
+		query = db.eventos.where('ts_ini').aboveOrEqual(new Date());//.toCollection();
 	}
 
 	if(pesquisando) {
 		var q1, q2;
 		var txt = removerAcentos($('#pesquisar').val());
-		txt = txt.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');//.replace(/[^\w\s]/gi, ''); 
+		txt = txt.trim().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');//.replace(/[^\w\s]/gi, ''); 
 		var rgx = new RegExp(txt, 'i');
 
 		q1 = db.categorias.filter(function(c) {

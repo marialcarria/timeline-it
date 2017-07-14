@@ -9,13 +9,13 @@
 		"id_subcategoria": 2,
 		"titulo": "IPTU",
 		"id_categoria": 7,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 3,
 		"titulo": "Seguro",
 		"id_categoria": 7,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 4,
@@ -47,6 +47,7 @@
 		"id_categoria": 7,
 		"repetir": null
 	},
+
 	{
 		"id_subcategoria": 9,
 		"titulo": "Combustível",
@@ -57,7 +58,7 @@
 		"id_subcategoria": 10,
 		"titulo": "Revisão",
 		"id_categoria": 2,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 11,
@@ -69,7 +70,7 @@
 		"id_subcategoria": 12,
 		"titulo": "Seguro",
 		"id_categoria": 2,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 13,
@@ -93,25 +94,26 @@
 		"id_subcategoria": 16,
 		"titulo": "IPVA",
 		"id_categoria": 2,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 17,
 		"titulo": "DPVAT",
 		"id_categoria": 2,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 18,
 		"titulo": "Renovar documentos",
 		"id_categoria": 2,
-		"repetir": "Y"
+		"repetir": "y"
 	},
+
 	{
 		"id_subcategoria": 19,
 		"titulo": "Aniversário",
 		"id_categoria": 9,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 20,
@@ -125,6 +127,7 @@
 		"id_categoria": 9,
 		"repetir": "M"
 	},
+
 	{
 		"id_subcategoria": 22,
 		"titulo": "Plano de saúde",
@@ -147,7 +150,7 @@
 		"id_subcategoria": 25,
 		"titulo": "Exames médicos",
 		"id_categoria": 1,
-		"repetir": "Y"
+		"repetir": "y"
 	},
 	{
 		"id_subcategoria": 26,
@@ -159,6 +162,278 @@
 		"id_subcategoria": 27,
 		"titulo": "Dentista",
 		"id_categoria": 1,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 28,
+		"titulo": "Renovar matrícula",
+		"id_categoria": 3,
+		"repetir": "y"
+	},
+	{
+		"id_subcategoria": 29,
+		"titulo": "Compra de material",
+		"id_categoria": 3,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 30,
+		"titulo": "Trabalhos e listas",
+		"id_categoria": 3,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 31,
+		"titulo": "Seminário",
+		"id_categoria": 3,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 32,
+		"titulo": "Avaliação",
+		"id_categoria": 3,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 33,
+		"titulo": "Reunião de pais",
+		"id_categoria": 3,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 34,
+		"titulo": "Mensalidade escolar",
+		"id_categoria": 3,
+		"repetir": "M"
+	},
+	{
+		"id_subcategoria": 35,
+		"titulo": "Passeio escolar",
+		"id_categoria": 3,
+		"repetir": null
+	},
+
+	{
+		"id_subcategoria": 36,
+		"titulo": "Veterinário",
+		"id_categoria": 4,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 37,
+		"titulo": "Pet Shop",
+		"id_categoria": 4,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 38,
+		"titulo": "Remédios",
+		"id_categoria": 4,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 38,
+		"titulo": "Passeio",
+		"id_categoria": 4,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 38,
+		"titulo": "Vacina",
+		"id_categoria": 4,
+		"repetir": "Y"
+	},
+
+	{
+		"id_subcategoria": 39,
+		"titulo": "Parque",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 40,
+		"titulo": "Cinema",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 41,
+		"titulo": "Show",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 42,
+		"titulo": "Balada",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 43,
+		"titulo": "Parque",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 44,
+		"titulo": "Academia",
+		"id_categoria": 5,
+		"repetir": null
+	},
+
+	{
+		"id_subcategoria": 45,
+		"titulo": "Corte de cabelo",
+		"id_categoria": 8,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 46,
+		"titulo": "Manicure",
+		"id_categoria": 8,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 47,
+		"titulo": "Maquiagem",
+		"id_categoria": 8,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 48,
+		"titulo": "Salão de beleza",
+		"id_categoria": 8,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 49,
+		"titulo": "Roupas/sapatos",
+		"id_categoria": 8,
+		"repetir": null
+	},
+
+
+	{
+		"id_subcategoria": 50,
+		"titulo": "Almoço",
+		"id_categoria": 10,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 51,
+		"titulo": "Jantar",
+		"id_categoria": 10,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 52,
+		"titulo": "Padaria",
+		"id_categoria": 10,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 53,
+		"titulo": "Lanchonete",
+		"id_categoria": 10,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 54,
+		"titulo": "Supermercado",
+		"id_categoria": 10,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 55,
+		"titulo": "Delivery",
+		"id_categoria": 10,
+		"repetir": null
+	},
+
+	{
+		"id_subcategoria": 56,
+		"titulo": "Passagens",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 57,
+		"titulo": "Hospedagem",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 58,
+		"titulo": "Passaporte",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 59,
+		"titulo": "Visto",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 60,
+		"titulo": "Lembranças",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 61,
+		"titulo": "Aeroporto",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 62,
+		"titulo": "Alimentação",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 63,
+		"titulo": "Passeio",
+		"id_categoria": 11,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 64,
+		"titulo": "Transporte",
+		"id_categoria": 11,
+		"repetir": null
+	},
+
+	{
+		"id_subcategoria": 65,
+		"titulo": "Internet",
+		"id_categoria": 12,
+		"repetir": "M"
+	},
+	{
+		"id_subcategoria": 66,
+		"titulo": "Celular",
+		"id_categoria": 12,
+		"repetir": "M"
+	},
+	{
+		"id_subcategoria": 67,
+		"titulo": "Telefone fixo",
+		"id_categoria": 12,
+		"repetir": "M"
+	},
+	{
+		"id_subcategoria": 68,
+		"titulo": "Correio",
+		"id_categoria": 12,
+		"repetir": null
+	},
+
+	{
+		"id_subcategoria": 69,
+		"titulo": "Outros",
+		"id_categoria": 6,
 		"repetir": null
 	}
 ]

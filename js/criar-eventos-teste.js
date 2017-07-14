@@ -9,7 +9,7 @@ function createEvent() {
         }));
     })
     evento.titulo = faker.random.words();
-    evento.descricao = faker.lorem.sentence();
+    //evento.descricao = faker.lorem.sentence();
     evento.dia_inteiro = faker.random.boolean();
     
     evento.repetir = faker.random.boolean();
