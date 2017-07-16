@@ -35,7 +35,7 @@
         <a href="lista_categorias.html?redirect=categoria" class="list-group-item">Editar categoria</a>
     </div>
 	<div class="container">
-		<h3>Olá, Mariana</h3>
+		<h3 class="saudacao"></h3>
         <h6>Selecione a categoria desejada</h6>
         <div class="row lista-categorias"></div>
         <a class="btn btn-simple btn-success" href="categoria.html"><i class="material-icons">add</i> Incluir categoria</a>
@@ -48,9 +48,20 @@
     <script src="js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- <script src="js/nouislider.min.js" type="text/javascript"></script> -->
     <script src="js/dexie.js"></script> 
+    <script src="js/moment.js"></script> 
     <script src="js/db.js"></script> 
 	<script src="js/main.js"></script>
-    <script>        
+
+    <script>   
+        var date = moment(new Date()).format('HH');     
+        console.log(date);
+        if (date >= "00" && date <= "12"){
+            $(".saudacao").html("Bom dia");
+        } else if (date > "12" && date < "19"){
+            $(".saudacao").html("Boa tarde");
+        } else {
+            $(".saudacao").html("Boa noite");
+        }
         db.categorias.where("excluido").notEqual(1).each(function(c){
             $(".lista-categorias").append(`
                 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
@@ -61,6 +72,7 @@
         });  
     </script>
 <script type="text/javascript" src="cordova.js"></script>
+
 </body>
 </html>
 

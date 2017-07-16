@@ -50,6 +50,9 @@
             <span class="label-soma-valor"></span>
         </div>
         <div style="text-align: center; position: fixed; right: 0; bottom: 0; transform: translateX(-50%) translateY(-1em);">
+            <button class="btn btn-fab btn-fab-mini btn-primary btn-round" id="mais_eventos" style="display: none; margin: auto; margin-bottom: 0.5em;">
+                <i class="material-icons">add</i>
+            </button><br>
             <button class="btn btn-fab btn-fab-mini btn-round" id="filtrar_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
                 <i class="material-icons">filter_list</i>
             </button><br>
@@ -72,31 +75,11 @@
     <script src="js/moment.js"></script>
     <script src="js/dexie.js"></script>
     <script src="js/db.js"></script>
-
-    <script src="js/index.js"></script>
     <script src="js/bootbox.min.js"></script>
     <script src="js/faker.js"></script>
-    <script src="js/criar-eventos-teste.js"></script>
+    <script src="js/criar-eventos-teste.js"></script>    
     <script src="cordova.js"></script>
-    <script>
-        // function novos_eventos(){        
-        //     setTimeout(function(){
-        //         location.reload();
-        //     }, 2000);
-        //     createEvents(6);                         
-        // }
-         //novos_eventos();
-    </script>
-    <!--
-    <script>
-        db.eventos.hook('reading', function (obj) {
-            obj.ts_ini = moment(obj.ts_ini, 'DD/MM/YYYY H:mm')._d;
-            obj.ts_fim = moment(obj.ts_fim, 'DD/MM/YYYY H:mm')._d;
-            return obj;
-        });
-    </script>
--->
-    <!--    <script type="text/javascript" src="cordova.js"></script>-->
+    <script src="js/index.js"></script>
 </body>
 
 </html>

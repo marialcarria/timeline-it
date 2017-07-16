@@ -3,40 +3,62 @@ $('.valor').mask('000.000.000.000.000,00', { reverse: true });
 $("#lista_subcategorias").hide();
 
 
-/*********************************************************************************************************************/
+$(document).ready(function(){
+    bootbox.setLocale('br');
+});
+
+
 /*notificações do device*/ 
 var info = null;
 
 var sound = 'file://sound.mp3';
-function schedule(id, title, message, date){
-	cordova.plugins.notification.local.schedule({
-        id: 1,
+function schedule(id, title, message, date, repetir, repeticao){
+    var n = {
+        id: id,
         title: title,
         message: message,
         sound: 'file://sounds/reminder.mp3',
         icon : 'res://tl-icon.png',
-        smallicon: 'res://tl-icon.png',
-        at: date
-        // every: 5,
-        // sound: sound,
-	});
-	bootbox.alert("Notificação incluída", function(){
-		return;
-	});
+        smallicon: 'res://tl-icon.png'
+    };
+    if (repetir){
+        n.firstAt = date;
+        switch(repeticao.periodo){
+            case 'h':
+                n.every = 60;
+                break;
+            case 'd':
+                n.every = 1440; 
+                break;
+            case 'w':
+                n.every = 10080;
+                break;
+            case 'M':
+                n.every = 43200; // 30 dias
+                break;
+            case 'y':
+                n.every = 525600; // 365 dias
+                break;                                                                
+        }
+        n.every*= repeticao.quantidade;
+    } else {
+        n.at = date;
+    }
+	cordova.plugins.notification.local.schedule(n);
 }
 
-function add_reminder(){
-	var date = moment($("#evt_dt_ini").val() + " " +  $("#evt_hr_ini").val()).toDate();
+function add_reminder(evt){
+    var date = moment(evt.ts_ini).subtract(evt.notificacao.quantidade, evt.notificacao.periodo).toDate();
 	var title = $("#nome_subcategoria").val();
-	var message = $("#nome_evento").val() || $("#nome_subcategoria").val();
+	var message = evt.titulo;
 	cordova.plugins.notification.local.hasPermission(function(granted){
 		if(granted == true){
-			schedule((new Date()).getTime(), title, message, date);
+			schedule(evt.id_evento, title, message, date, evt.repetir, evt.repeticao);
 		}
 		else{
 			cordova.plugins.notification.local.registerPermission(function(granted) {
 				if(granted == true){
-					schedule((new Date()).getTime(), title, message, date);
+					schedule(evt.id_evento, title, message, date, evt.repetir, evt.repeticao);
 				} else{
 					bootbox.alert("App não tem permissão para notificar.", function(){
                         return;
@@ -46,10 +68,6 @@ function add_reminder(){
 		}
 	});
 }
-
-/*fim notificações device*/ 
-/*********************************************************************************************************************/
-
 
 var evento = {};
 var promise_evento = new Promise(function(resolve, reject){
@@ -77,6 +95,13 @@ $("#excluir_evento").on("click",function(){
     bootbox.confirm("Excluir evento?", function(result){
         console.log(result);
         if (result){
+            try{
+                cordova.plugins.notification.local.cancel(param.id_evento, function () {
+                    // Notification was cancelled
+                }, scope);
+            } catch(e){
+                console.log('erro ao excluir notificaçao');
+            }
             db.eventos.delete(parseInt(param.id_evento)).then(function(){
                 bootbox.alert("Evento excluído", function(){
                     window.location.href = "index.html";
@@ -128,6 +153,9 @@ promise_evento.then(function(){
 $("#repetir").on("change", function () {
     if ($(this).prop("checked")) {
         $("#repetir_detalhes").show();
+        if ($("#btn_dt_final").data("value") == 0){
+            $("#btn_dt_final").click();
+        }
     } else {
         $("#repetir_detalhes").hide();
     }
@@ -135,12 +163,12 @@ $("#repetir").on("change", function () {
 
 //adicionar data final
 $("#btn_dt_final").click(function () {
-    if ($(this).data("value") === 0) {
+    if ($(this).data("value") == 0) {
         $("#div_evt_dt_fim").slideToggle();
         $(this).html("Remover data final");
         $(this).data("value", 1);
         if(!param.id_evento){
-            $("#evt_dt_fim").val(moment(new Date()).add(1,'days').format("YYYY-MM-DD"));
+            add_horas(dia_inteiro, tem_data_fim);
         }
     } else {
         $("#evt_dt_fim, #evt_hr_fim").val("");
@@ -148,11 +176,11 @@ $("#btn_dt_final").click(function () {
         $(this).html("Adicionar data final");
         $(this).data("value", 0);
     }
-    var dia_inteiro = $("#dia_inteiro").prop("checked");
-    var tem_data_fim = $("#btn_dt_final").data("value") == 1;
-    if (!param.id_evento){
-        add_horas(dia_inteiro, tem_data_fim);
-    }
+     var dia_inteiro = $("#dia_inteiro").prop("checked");
+     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
+     if (!param.id_evento){
+         add_horas(dia_inteiro, tem_data_fim);
+     }
 });
 
 //dia inteiro 
@@ -160,20 +188,29 @@ $("#dia_inteiro").on("change", function () {
     var dia_inteiro = $("#dia_inteiro").prop("checked");
     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
     if (!param.id_evento){
+        $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("HH:00"));
         add_horas(dia_inteiro, tem_data_fim);
     }
     $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
 });
 
 function add_horas(dia_inteiro, tem_data_fim){
+  var data;
     if(!dia_inteiro){
-        $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("HH:00"));
-        if(tem_data_fim){
-            $("#evt_hr_fim").val(moment(new Date()).add(2,'hours').format("HH:00"));
+        data = moment($("#evt_dt_ini").val() + " " +  $("#evt_hr_ini").val()).add(1,'hours');
+        if(tem_data_fim){           
+            $("#evt_dt_fim").val(data.format("YYYY-MM-DD"));
+            $("#evt_hr_fim").val(data.format("HH:00"));
         } else {
-            $("#evt_hr_fim").val("");
+            $("#evt_hr_fim, #evt_dt_fim").val("");
         }
     } else {
+        data = moment($("#evt_dt_ini").val());
+        if(tem_data_fim){
+            $("#evt_dt_fim").val(data.format("YYYY-MM-DD"));
+        } else{
+            $("#evt_dt_fim").val("");
+        }
         $("#evt_hr_ini").val("");
     }
 }
@@ -197,9 +234,11 @@ function carregar_dados_repeticao(){
             console.log(subcategoria_selecionada);
             console.log(subcategoria_selecionada.repetir);
             repeticao_subcategoria = subcategoria_selecionada.repetir;
-            if(repeticao_subcategoria){
+            if(repeticao_subcategoria){           
                 $("#repetir").prop("checked", true).trigger('change');
                 $("#periodo_repeticao").val(repeticao_subcategoria);
+            } else {
+                 $("#repetir").prop("checked", false).trigger('change');
             }
         }
     ).catch(
@@ -211,7 +250,8 @@ function carregar_dados_repeticao(){
 
 function buscar_dados_evento(){
     $("#nome_evento").val(evento.titulo);
-    $("#valor_evento_hidden").val(parseFloat($("#valor_evento").val()).toFixed(2));
+    var vlr = isNaN(parseFloat($("#valor_evento").val()).toFixed(2))? 0 : parseFloat($("#valor_evento").val()).toFixed(2);
+    $("#valor_evento_hidden").val(vlr);
     $("#valor_evento").val(evento.valor.toFixed(2)).trigger('input');                
     $("#evt_dt_ini").val(moment(evento.ts_ini).format("YYYY-MM-DD"));
     $("#evt_hr_ini").val(moment(evento.ts_ini).format("HH:mm"));
@@ -223,13 +263,15 @@ function buscar_dados_evento(){
     $("#dia_inteiro").prop("checked", evento.dia_inteiro).trigger('change');
     $("#quantidade_notificacao").val(evento.notificacao.quantidade);
     $("#periodo_notificacao").val(evento.notificacao.periodo);
-    $("#quantidade_repeticao").val(evento.repeticao.quantidade);
-    $("#periodo_repeticao").val(evento.repeticao.periodo);
+    if (evento.repetir){
+        $("#quantidade_repeticao").val(evento.repeticao.quantidade);
+        $("#periodo_repeticao").val(evento.repeticao.periodo);
+    } else {
+        $("#quantidade_repeticao").val("");
+        $("#periodo_repeticao").val("");
+    }
     $("#repetir").prop("checked", evento.repetir).trigger('change');
-    //notificacao
-    //repeticao
-    console.log('teste');
-    console.log(moment(evento.ts_ini).format("YYYY-MM-DD"));
+    
 }
 
 
@@ -257,18 +299,28 @@ $("#gravar_evento").on('click', function () {
             t = $("#evt_hr_fim").val().split(":");
             d.hour(t[0]).minute(t[1]);
         }
-        e.ts_fim = d.toDate();
+        if (e.dia_inteiro){
+            e.ts_fim = d.add(1, 'day').subtract(1, 'second').toDate();
+        } else {
+            e.ts_fim = d.toDate();
+        }
     } else {
         e.ts_fim = null;
     }
-    e.valor = parseFloat($("#valor_evento").val().replace(".","").replace(",","."));
+    if (isNaN(parseFloat($("#valor_evento").val().replace(".","").replace(",",".")))){
+        e.valor = 0;
+    } else {
+        e.valor = parseFloat($("#valor_evento").val().replace(".","").replace(",","."));
+    }
     e.notificacao = {
         "quantidade": $("#quantidade_notificacao").val(),
         "periodo": $("#periodo_notificacao").val()
     };
     e.repetir = $("#repetir").prop("checked");
     if (e.repetir){
-        dt_fim_ok = false;
+        if ($("#evt_dt_fim").val()){
+            dt_fim_ok = false;
+        }
         e.repeticao = {
             "quantidade": $("#quantidade_repeticao").val(),
             "periodo": $("#periodo_repeticao").val()
@@ -287,6 +339,9 @@ $("#gravar_evento").on('click', function () {
     subcategoria_ok = !($ ("#id_subcategoria_selecionada").val() == "" || $("#id_subcategoria_selecionada").val() == "undefined" || $("#id_subcategoria_selecionada").val() == null);
     dt_ini_ok = dt_ini && moment(dt_ini).isSameOrAfter(new Date(), 'day');
     dt_fim_ok = (!tem_data_fim) || (dt_fim && moment(dt_ini).isSameOrBefore(dt_fim, 'day'));
+    if (e.repetir){
+        dt_fim_ok = dt_fim_ok && dt_fim;
+    }
     hr_ini_ok = (e.dia_inteiro || hr_ini);
     hr_fim_ok = ((e.dia_inteiro || !tem_data_fim) || hr_fim);
     if (!e.dia_inteiro){
@@ -302,13 +357,14 @@ $("#gravar_evento").on('click', function () {
     } else {
         hr_intervalo_ok = true;
     }
-    var evt_valido = dt_ini_ok && dt_fim_ok && hr_ini_ok && hr_fim_ok && categoria_ok && subcategoria_ok && hr_intervalo_ok;    
+    var repeticao_ok = !e.repetir || (e.repetir && $("#quantidade_repeticao").val() && $("#periodo_repeticao").val());
+    var evt_valido = dt_ini_ok && dt_fim_ok && hr_ini_ok && hr_fim_ok && categoria_ok && subcategoria_ok && hr_intervalo_ok && repeticao_ok;    
     if (evt_valido){ 
         db.eventos.put(e).then(function(){
             bootbox.alert("Evento incluído.", function(){
                 try {
                     if(e.notificacao && !!window.cordova) {
-                        add_reminder();
+                        add_reminder(e);
                     }
                     window.location.href = "index.html";
                 } catch (err) {
@@ -327,31 +383,36 @@ $("#gravar_evento").on('click', function () {
                     return;
                 });
             }
-            if (e.repeticao){
+            if (e.repetir){
                 bootbox.alert("Eventos com repetição devem possuir uma data final.", function(){
                     return;
                 });
             }
         }
-        if (!dt_ini_ok){
+        else if (!dt_ini_ok){
              bootbox.alert("Informe a data inicial.", function(){
                 return;
             });
         }
-        if (!hr_fim_ok || !hr_ini_ok){
+        else if (!hr_fim_ok || !hr_ini_ok){
              bootbox.alert("Hora deve ser informada.", function(){
                 return;
             });
         }
-        if (!subcategoria_ok){
+        else if (!subcategoria_ok){
              bootbox.alert("Informe a subcategoria.", function(){
                 return;
             });
         }
-        if (!categoria_ok){
+        else if (!categoria_ok){
             bootbox.alert ("Ocorreu um erro ao escolher a categoria.", function(){
                 window.location.href ="index.html";
             });
-        }        
+        }   
+        else {
+            bootbox.alert("Ocorreu um erro. Verifique seus dados e tente novamente.", function(){
+                return;
+            });
+        }     
     }
 });

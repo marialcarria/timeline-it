@@ -7,6 +7,10 @@ var eventos_limit = 20;
 var pesquisando = false;
 var eventos_pendentes = [];
 
+$(document).ready(function(){
+    bootbox.setLocale('br');
+});
+
 if(localStorage.getItem('filtros')){
     $(".btn-remover-filtros").show();
 } else {
@@ -96,7 +100,9 @@ function mostrar_eventos() {
 		})
 
 		if(eventos_renderizar.length === 0) {
-			$("section").append("<span style='padding-left: 35px;'>Nenhum evento encontrado.</span>");
+			if($("section").html().indexOf("span") < 0){
+				$("section").append("<span style='padding-left: 35px;'>Nenhum evento encontrado.</span>");
+			}
 		} else {
 			eventos_renderizar.sort(function(a,b) {
 				if (a.ts_ini < b.ts_ini)
@@ -114,10 +120,11 @@ function mostrar_eventos() {
 			eventos_pendentes.forEach(function(evento, i) {
 				var d = moment(evento.ts_ini);
 				var o;
-				while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= evento.ts_fim) {
+				while(d <= evento.ts_fim) {
 					o = Object.assign({}, evento);
 					o.ts_ini = d.toDate();
 					eventos_renderizar.push(o);
+					d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate();
 				}
 			});
 			eventos_pendentes = [];
@@ -160,7 +167,7 @@ $('#carregar-mais').on('click', mostrar_eventos);
 
 //abre "mais opções (adicionar evento, filtrar)"
 $("#mais_opcoes").on("click", function(){
-     $("#add_evento, #filtrar_evento").fadeToggle();
+     $("#add_evento, #filtrar_evento, #mais_eventos").fadeToggle();
 });
 
 //editar eventos
@@ -285,6 +292,9 @@ $('.btn-remover-filtros').on('click', function(){
     location.reload();
 });
 
+$("#mais_eventos").on("click", function(){
+		createEvents(6);
+});
 
 /*Funçoes para o filtro de evt*/ 
 

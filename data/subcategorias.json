@@ -232,81 +232,81 @@
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 38,
+		"id_subcategoria": 39,
 		"titulo": "Passeio",
 		"id_categoria": 4,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 38,
+		"id_subcategoria": 40,
 		"titulo": "Vacina",
 		"id_categoria": 4,
 		"repetir": "Y"
 	},
 
 	{
-		"id_subcategoria": 39,
-		"titulo": "Parque",
-		"id_categoria": 5,
-		"repetir": null
-	},
-	{
-		"id_subcategoria": 40,
-		"titulo": "Cinema",
-		"id_categoria": 5,
-		"repetir": null
-	},
-	{
 		"id_subcategoria": 41,
-		"titulo": "Show",
+		"titulo": "Parque",
 		"id_categoria": 5,
 		"repetir": null
 	},
 	{
 		"id_subcategoria": 42,
-		"titulo": "Balada",
+		"titulo": "Cinema",
 		"id_categoria": 5,
 		"repetir": null
 	},
 	{
 		"id_subcategoria": 43,
-		"titulo": "Parque",
+		"titulo": "Show",
 		"id_categoria": 5,
 		"repetir": null
 	},
 	{
 		"id_subcategoria": 44,
+		"titulo": "Balada",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 45,
+		"titulo": "Parque",
+		"id_categoria": 5,
+		"repetir": null
+	},
+	{
+		"id_subcategoria": 46,
 		"titulo": "Academia",
 		"id_categoria": 5,
 		"repetir": null
 	},
 
 	{
-		"id_subcategoria": 45,
+		"id_subcategoria": 47,
 		"titulo": "Corte de cabelo",
 		"id_categoria": 8,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 46,
+		"id_subcategoria": 48,
 		"titulo": "Manicure",
 		"id_categoria": 8,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 47,
+		"id_subcategoria": 49,
 		"titulo": "Maquiagem",
 		"id_categoria": 8,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 48,
+		"id_subcategoria": 50,
 		"titulo": "Salão de beleza",
 		"id_categoria": 8,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 49,
+		"id_subcategoria": 51,
 		"titulo": "Roupas/sapatos",
 		"id_categoria": 8,
 		"repetir": null
@@ -314,124 +314,124 @@
 
 
 	{
-		"id_subcategoria": 50,
+		"id_subcategoria": 52,
 		"titulo": "Almoço",
 		"id_categoria": 10,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 51,
+		"id_subcategoria": 53,
 		"titulo": "Jantar",
 		"id_categoria": 10,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 52,
+		"id_subcategoria": 54,
 		"titulo": "Padaria",
 		"id_categoria": 10,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 53,
+		"id_subcategoria": 55,
 		"titulo": "Lanchonete",
 		"id_categoria": 10,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 54,
+		"id_subcategoria": 56,
 		"titulo": "Supermercado",
 		"id_categoria": 10,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 55,
+		"id_subcategoria": 57,
 		"titulo": "Delivery",
 		"id_categoria": 10,
 		"repetir": null
 	},
 
 	{
-		"id_subcategoria": 56,
+		"id_subcategoria": 58,
 		"titulo": "Passagens",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 57,
+		"id_subcategoria": 59,
 		"titulo": "Hospedagem",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 58,
+		"id_subcategoria": 60,
 		"titulo": "Passaporte",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 59,
+		"id_subcategoria": 61,
 		"titulo": "Visto",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 60,
+		"id_subcategoria": 62,
 		"titulo": "Lembranças",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 61,
+		"id_subcategoria": 63,
 		"titulo": "Aeroporto",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 62,
+		"id_subcategoria": 64,
 		"titulo": "Alimentação",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 63,
+		"id_subcategoria": 65,
 		"titulo": "Passeio",
 		"id_categoria": 11,
 		"repetir": null
 	},
 	{
-		"id_subcategoria": 64,
+		"id_subcategoria": 66,
 		"titulo": "Transporte",
 		"id_categoria": 11,
 		"repetir": null
 	},
 
 	{
-		"id_subcategoria": 65,
+		"id_subcategoria": 67,
 		"titulo": "Internet",
 		"id_categoria": 12,
 		"repetir": "M"
 	},
 	{
-		"id_subcategoria": 66,
+		"id_subcategoria": 68,
 		"titulo": "Celular",
 		"id_categoria": 12,
 		"repetir": "M"
 	},
 	{
-		"id_subcategoria": 67,
+		"id_subcategoria": 69,
 		"titulo": "Telefone fixo",
 		"id_categoria": 12,
 		"repetir": "M"
 	},
 	{
-		"id_subcategoria": 68,
+		"id_subcategoria": 70,
 		"titulo": "Correio",
 		"id_categoria": 12,
 		"repetir": null
 	},
 
 	{
-		"id_subcategoria": 69,
+		"id_subcategoria": 71,
 		"titulo": "Outros",
 		"id_categoria": 6,
 		"repetir": null

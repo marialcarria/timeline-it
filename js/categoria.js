@@ -1,14 +1,17 @@
 var categoria = {};
 var subcategorias = [];
 var repeticoes = {
-    "Y": "por ano",
+    "y": "por ano",
     "M": "por mês",
-    "W": "por semana",
-    "D": "por dia",
-    "H": "por hora",
+    "w": "por semana",
+    "d": "por dia",
+    "h": "por hora",
     "m": "por minuto"
 };
 
+$(document).ready(function(){
+    bootbox.setLocale('br');
+});
 if (param.id_categoria) {
     $("#excluir_categoria").show();
     db.categorias.where('id_categoria').equals(parseInt(param.id_categoria)).first().then(
@@ -40,7 +43,7 @@ $('#add_subcategoria').on('click', function () {
     var subcategoria = $("#input_subcategorias").val();
     var repeticao = $("#subcategoria_repeticao").val();
     if (subcategoria == "" || subcategoria == null) {
-        alert("Título inválido para a subcategoria.");
+        bootbox.alert("Título inválido para a subcategoria.");
     } else {
         add_subcategoria(subcategoria, repeticao, true);
     }
@@ -96,22 +99,22 @@ function editar(val) {
                         <select class="form-control" id="editar_subcategoria_repeticao">
                             <option ${pai.find('.repeticao_subcategoria').data('value') == "0" ? 'selected' : ''} value="0">não repetir</option>
                             <option ${pai.find('.repeticao_subcategoria').data('value') == "m" ? 'selected' : ''} value="m">minuto</option>
-                            <option ${pai.find('.repeticao_subcategoria').data('value') == "H" ? 'selected' : ''} value="H">hora</option>
-                            <option ${pai.find('.repeticao_subcategoria').data('value') == "D" ? 'selected' : ''} value="D">dia</option>
-                            <option ${pai.find('.repeticao_subcategoria').data('value') == "W" ? 'selected' : ''} value="W">semana</option>
+                            <option ${pai.find('.repeticao_subcategoria').data('value') == "h" ? 'selected' : ''} value="h">hora</option>
+                            <option ${pai.find('.repeticao_subcategoria').data('value') == "d" ? 'selected' : ''} value="d">dia</option>
+                            <option ${pai.find('.repeticao_subcategoria').data('value') == "w" ? 'selected' : ''} value="w">semana</option>
                             <option ${pai.find('.repeticao_subcategoria').data('value') == "M" ? 'selected' : ''} value="M">mês</option>
-                            <option ${pai.find('.repeticao_subcategoria').data('value') == "Y" ? 'selected' : ''} value="Y">ano</option>
+                            <option ${pai.find('.repeticao_subcategoria').data('value') == "y" ? 'selected' : ''} value="y">ano</option>
                         </select>
                     </div>
                 </div>
         `,
         buttons: {
             confirm: {
-                label: 'Yes',
+                label: 'Ok',
                 className: 'btn-success'
             },
             cancel: {
-                label: 'No',
+                label: 'Cancelar',
                 className: 'btn-danger'
             }
         },
@@ -131,7 +134,7 @@ $("#gravar_categoria").on("click", function () {
     var nome_categoria = $("#nome_categoria").val();
     var ok = nome_categoria.length > 3 && nome_categoria.length < 30 && nome_categoria.trim() != "" && nome_categoria != null;
     if (!ok) {
-        alert("Nome inválido para a categoria (escolher um nome entre 3 e 30 caracteres).");
+        bootbox.alert("Nome inválido para a categoria (escolher um nome entre 3 e 30 caracteres).");
         return;
     } else {
         var categoria = {};
@@ -153,6 +156,7 @@ $("#gravar_categoria").on("click", function () {
 });
 
 function add_subcategorias(id) {
+    console.log(id);
     var array_subcategorias = [];
     var array_subcategorias_editar = [];
     $('.lista_subcategorias tr.inserir').each(function () {
@@ -160,7 +164,9 @@ function add_subcategorias(id) {
         var titulo = $(this).find('.titulo_subcategoria').text();
         var repeticao = $(this).find('.repeticao_subcategoria').data('value');
         obj_subcategorias = { "titulo": titulo, "id_categoria": id, "repetir": repeticao, "ativo": 1 };
+        console.log(obj_subcategorias);
         array_subcategorias.push(obj_subcategorias);
+        console.log(array_subcategorias);
     });
     $('.lista_subcategorias tr.editar').each(function () {
         var obj_subcategorias = {};
@@ -217,12 +223,14 @@ $('#selecionar_icone').on('click', function () {
 });
 
 $("#excluir_categoria").on("click", function () {
-    bootbox.confirm("Excluir categoria?", function () {
-        db.categorias.update(parseInt(param.id_categoria), { "excluido": 1 }).then(function () {
-            bootbox.alert("Categoria excluída", function () {
-                window.location.href = "index.html";
+    bootbox.confirm("Excluir categoria?", function (result) {
+        if (result){
+            db.categorias.update(parseInt(param.id_categoria), { "excluido": 1 }).then(function () {
+                bootbox.alert("Categoria excluída", function () {
+                    window.location.href = "index.html";
+                });
             });
-        });
+        }
     });
 });
 
