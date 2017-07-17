@@ -62,14 +62,27 @@
         } else {
             $(".saudacao").html("Boa noite");
         }
+        var outros = {};
         db.categorias.where("excluido").notEqual(1).each(function(c){
+            if (!c.outros){
+                $(".lista-categorias").append(`
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="${param.redirect}.html?id_categoria=${c.id_categoria}" class="btn btn-categoria" style="background-color: ${c.cor};">
+                            <i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br>
+                            <span style="font-size: 1.2em;">${c.titulo}</span></a>  
+                    </div>`);  
+            } else {
+                outros = c;
+            }
+        }).then(function(){
+            var c = outros;
             $(".lista-categorias").append(`
                 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                     <a href="${param.redirect}.html?id_categoria=${c.id_categoria}" class="btn btn-categoria" style="background-color: ${c.cor};">
                         <i class="material-icons" style="padding-top: 30%; font-size: 4em;">${c.icone}</i><br>
                         <span style="font-size: 1.2em;">${c.titulo}</span></a>  
                 </div>`);  
-        });  
+        });
     </script>
 <script type="text/javascript" src="cordova.js"></script>
 

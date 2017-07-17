@@ -73,16 +73,18 @@ function createEvent() {
     }
     evento.valor = parseFloat(faker.finance.amount());
     
-    p.then(function() {
+    return p.then(function() {
         console.log(evento);
-        db.eventos.add(evento);
+        return db.eventos.add(evento);
     });
 }
 
 function createEvents(count) {
+    var p = [];
     for(let i=0;i<count;i++) {
-        createEvent();
+        p.push(createEvent());
     }
+    return Promise.all(p);
 }
 
 // db.eventos.count(function(c) {

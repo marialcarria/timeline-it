@@ -39,7 +39,8 @@
         "titulo": "Outros",
         "icone": "more_vert",
         "cor": "#66757F",
-        "excluido": 0
+        "excluido": 0,
+        "outros": true
     },
     {
         "id_categoria": 7,

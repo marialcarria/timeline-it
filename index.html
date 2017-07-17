@@ -36,7 +36,8 @@
 
     <div class="container-fluid" style="padding-bottom: calc(40px + 0.5em)"> <!-- padding por causa do rodape -->
         <button class="btn btn-xs btn-danger
-         pull-right btn-remover-filtros" style="display: none;"><i class="material-icons">filter_list</i>remover filtros</button>
+          btn-remover-filtros" style="display: none;"><i class="material-icons">filter_list</i>remover filtros
+         </button>
         <section id="cd-timeline"></section>
         <button id="carregar-mais" class="btn btn-block btn-primary">
             Carregar mais eventos
@@ -50,8 +51,11 @@
             <span class="label-soma-valor"></span>
         </div>
         <div style="text-align: center; position: fixed; right: 0; bottom: 0; transform: translateX(-50%) translateY(-1em);">
+            <button class="btn btn-fab btn-fab-mini btn-danger btn-round" id="remover_todos_eventos" style="display: none; margin: auto; margin-bottom: 0.5em;">
+                <i class="material-icons">delete</i>
+            </button><br>
             <button class="btn btn-fab btn-fab-mini btn-primary btn-round" id="mais_eventos" style="display: none; margin: auto; margin-bottom: 0.5em;">
-                <i class="material-icons">add</i>
+                <i class="material-icons">queue</i>
             </button><br>
             <button class="btn btn-fab btn-fab-mini btn-round" id="filtrar_evento" style="display: none; margin: auto; margin-bottom: 0.5em;">
                 <i class="material-icons">filter_list</i>

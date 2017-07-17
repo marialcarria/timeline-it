@@ -1,3 +1,4 @@
+var filtros;
 var timelineBlocks;
 var offset = 0.8;
 var eventos, categorias;
@@ -43,6 +44,17 @@ function renderizar(conteudo) {
 	calculaValor();
 }
 
+function testaDataFim(d) {
+	if(typeof filtros === 'undefined') return true;
+	if(! filtros['data_fim']) {
+		return true;
+	} 
+	var dt = (d['_isAMomentObject']) ? d.toDate() : d;
+	
+	return dt <= moment(filtros['data_fim'], 'YYYY-MM-DD');
+
+}
+
 function mostrar_eventos() {
 	Promise.all([
 		filtrar(),
@@ -66,12 +78,13 @@ function mostrar_eventos() {
 		eventos_pendentes.forEach(function(evento, i) {
 			var d = moment(evento.ts_ini);
 			var o;
-			while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= ultima_data && d.toDate() <= evento.ts_fim) {
+			while(d.toDate() <= ultima_data && d.toDate() <= evento.ts_fim && testaDataFim(d.toDate())) {
 				o = Object.assign({}, evento);
 				o.ts_ini = d.toDate();
 				eventos_renderizar.push(o);
+				d.add(evento.repeticao.quantidade, evento.repeticao.periodo);
 			}
-			if(d.toDate() <= evento.ts_fim) {
+			if((d.toDate() <= evento.ts_fim) && testaDataFim(d.toDate())){
 				eventos_pendentes[i].ts_ini = d.toDate();
 			} else {
 				eventos_pendentes[i].ts_ini = null;
@@ -86,12 +99,12 @@ function mostrar_eventos() {
 			if(evento.repetir) {
 				var d = moment(evento.ts_ini);
 				var o;
-				while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= ultima_data && d.toDate() <= evento.ts_fim) {
+				while(d.add(evento.repeticao.quantidade, evento.repeticao.periodo).toDate() <= ultima_data && d.toDate() <= evento.ts_fim && testaDataFim(d.toDate())) {
 					o = Object.assign({}, evento);
 					o.ts_ini = d.toDate();
 					eventos_renderizar.push(o);
 				}
-				if(d.toDate() <= evento.ts_fim) {
+				if(d.toDate() <= evento.ts_fim && testaDataFim(d.toDate())) {
 					o = Object.assign({}, evento);
 					o.ts_ini = d.toDate();
 					eventos_pendentes.push(o);
@@ -101,7 +114,7 @@ function mostrar_eventos() {
 
 		if(eventos_renderizar.length === 0) {
 			if($("section").html().indexOf("span") < 0){
-				$("section").append("<span style='padding-left: 35px;'>Nenhum evento encontrado.</span>");
+				$("section").append("<span style='padding-left: 35px; font-family: sans-serif;'>Nenhum evento encontrado.</span>");
 			}
 		} else {
 			eventos_renderizar.sort(function(a,b) {
@@ -120,7 +133,7 @@ function mostrar_eventos() {
 			eventos_pendentes.forEach(function(evento, i) {
 				var d = moment(evento.ts_ini);
 				var o;
-				while(d <= evento.ts_fim) {
+				while(d.toDate() <= evento.ts_fim && testaDataFim(d.toDate())) {
 					o = Object.assign({}, evento);
 					o.ts_ini = d.toDate();
 					eventos_renderizar.push(o);
@@ -167,7 +180,7 @@ $('#carregar-mais').on('click', mostrar_eventos);
 
 //abre "mais opções (adicionar evento, filtrar)"
 $("#mais_opcoes").on("click", function(){
-     $("#add_evento, #filtrar_evento, #mais_eventos").fadeToggle();
+     $("#add_evento, #filtrar_evento, #mais_eventos, #remover_todos_eventos").fadeToggle();
 });
 
 //editar eventos
@@ -178,7 +191,7 @@ function gerenciar_evento(evt){
 
 function filtrar(){
 	var query;
-	var filtros = localStorage.getItem("filtros");
+	filtros = localStorage.getItem("filtros");
 	if (filtros){
 		filtros = JSON.parse(filtros);
 		if(filtros["data_ini"] && filtros["data_fim"]) {
@@ -205,7 +218,7 @@ function filtrar(){
 		}
 	} 
 	if(query === undefined) {
-		query = db.eventos.where('ts_ini').aboveOrEqual(new Date());//.toCollection();
+		query = db.eventos.where('ts_ini').aboveOrEqual((new Date()).setHours(0,0,0,0));//.toCollection();
 	}
 
 	if(pesquisando) {
@@ -293,7 +306,15 @@ $('.btn-remover-filtros').on('click', function(){
 });
 
 $("#mais_eventos").on("click", function(){
-		createEvents(6);
+		createEvents(6).then(function(){
+			location.reload();
+		});
+});
+
+$('#remover_todos_eventos').on('click',function(){
+	db.eventos.clear().then(function(){
+		location.reload();
+	});
 });
 
 /*Funçoes para o filtro de evt*/ 
@@ -302,6 +323,7 @@ $('#filtrar_evento').on('click',function(){
 	window.location.href = "filtrar.html";
 	buscar_categorias_filtro();
 });
+
 function buscar_categorias_filtro(){
 	categorias.forEach(function(c){
 		$(".modal-filtro-evento").append(`

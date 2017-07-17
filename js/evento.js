@@ -17,7 +17,6 @@ function schedule(id, title, message, date, repetir, repeticao){
         id: id,
         title: title,
         message: message,
-        sound: 'file://sounds/reminder.mp3',
         icon : 'res://tl-icon.png',
         smallicon: 'res://tl-icon.png'
     };
@@ -96,17 +95,21 @@ $("#excluir_evento").on("click",function(){
         console.log(result);
         if (result){
             try{
-                cordova.plugins.notification.local.cancel(param.id_evento, function () {
-                    // Notification was cancelled
-                }, scope);
+                cordova.plugins.notification.local.cancel(parseInt(param.id_evento), function () {
+                    db.eventos.delete(parseInt(param.id_evento)).then(function(){
+                        bootbox.alert("Evento excluído", function(){
+                            window.location.href = "index.html";
+                        });
+                    });
+                });
             } catch(e){
+                db.eventos.delete(parseInt(param.id_evento)).then(function(){
+                    bootbox.alert("Evento excluído", function(){
+                        window.location.href = "index.html";
+                    });
+                });
                 console.log('erro ao excluir notificaçao');
             }
-            db.eventos.delete(parseInt(param.id_evento)).then(function(){
-                bootbox.alert("Evento excluído", function(){
-                    window.location.href = "index.html";
-                });
-            });
         }
     });
 });
@@ -163,12 +166,14 @@ $("#repetir").on("change", function () {
 
 //adicionar data final
 $("#btn_dt_final").click(function () {
+    var dia_inteiro = $("#dia_inteiro").prop("checked");
+    var tem_data_fim = $("#btn_dt_final").data("value") == 1;
     if ($(this).data("value") == 0) {
         $("#div_evt_dt_fim").slideToggle();
         $(this).html("Remover data final");
         $(this).data("value", 1);
-        if(!param.id_evento){
-            add_horas(dia_inteiro, tem_data_fim);
+        if(!param.id_evento || $("#evt_dt_fim").val()==""){
+            add_horas(dia_inteiro, true);
         }
     } else {
         $("#evt_dt_fim, #evt_hr_fim").val("");
@@ -176,22 +181,25 @@ $("#btn_dt_final").click(function () {
         $(this).html("Adicionar data final");
         $(this).data("value", 0);
     }
-     var dia_inteiro = $("#dia_inteiro").prop("checked");
-     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
-     if (!param.id_evento){
-         add_horas(dia_inteiro, tem_data_fim);
-     }
+    //  if (!param.id_evento){
+    //      add_horas(dia_inteiro, tem_data_fim);
+    //  }
 });
 
 //dia inteiro 
 $("#dia_inteiro").on("change", function () {
     var dia_inteiro = $("#dia_inteiro").prop("checked");
     var tem_data_fim = $("#btn_dt_final").data("value") == 1;
-    if (!param.id_evento){
-        $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("HH:00"));
-        add_horas(dia_inteiro, tem_data_fim);
+    if (dia_inteiro){
+        $(".div_evt_hr_ini, .div_evt_hr_fim").hide();
+        $("#evt_hr_ini, #evt_hr_fim").val("");
+    } else {
+        if ($("#evt_hr_ini").val() == ""){
+            $("#evt_hr_ini").val(moment(new Date()).add(1,'hours').format("HH:00"));
+            add_horas(dia_inteiro, tem_data_fim);
+        }
+        $(".div_evt_hr_ini, .div_evt_hr_fim").show();
     }
-    $(".div_evt_hr_ini, .div_evt_hr_fim").toggle();
 });
 
 function add_horas(dia_inteiro, tem_data_fim){
@@ -254,11 +262,19 @@ function buscar_dados_evento(){
     $("#valor_evento_hidden").val(vlr);
     $("#valor_evento").val(evento.valor.toFixed(2)).trigger('input');                
     $("#evt_dt_ini").val(moment(evento.ts_ini).format("YYYY-MM-DD"));
-    $("#evt_hr_ini").val(moment(evento.ts_ini).format("HH:mm"));
+    if (evento.dia_inteiro){
+        $("#evt_hr_ini").val("");
+    } else {
+        $("#evt_hr_ini").val(moment(evento.ts_ini).format("HH:mm"));
+    }
     if(evento.ts_fim){
         $("#btn_dt_final").click();
         $("#evt_dt_fim").val(moment(evento.ts_fim).format("YYYY-MM-DD"));
-        $("#evt_hr_fim").val(moment(evento.ts_fim).format("HH:mm"));
+        if (evento.dia_inteiro){
+            $("#evt_hr_fim").val("");
+        } else {
+            $("#evt_hr_fim").val(moment(evento.ts_fim).format("HH:mm"));
+        } 
     }
     $("#dia_inteiro").prop("checked", evento.dia_inteiro).trigger('change');
     $("#quantidade_notificacao").val(evento.notificacao.quantidade);

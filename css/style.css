@@ -91,6 +91,9 @@
 .btn-remover-filtros{
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   z-index: 999;
+  display: block;
+  margin-left: 100%;
+  transform: translateX(-100%);
 }
 
 .navbar{
@@ -336,6 +339,7 @@ div.barra-menu{
     width: 100% !important;
     height: 0 !important;
     padding-bottom: 100% !important;
+    white-space: initial !important;
 }
 .timeline-checkbox, input.timeline-checkbox:focus{
     background-image: none !important;
